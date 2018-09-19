@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="学习分什么高低贵贱，从零好好开始。 2018年8月16日10:54:09明确的说今天我们还不足够的优秀，那就多读书。    2018年8月17日09:31:36">
-<meta name="keywords" content="鸡汤">
+  <meta name="description" content="2.1.准备Linux环境​    1.0先将虚拟机的网络模式选为NAT 1.1修改主机名     vi /etc/hostname  1.2修改IP         vi /etc/sysconfig/network-scripts/ifcfg-ens33          TYPE=Ethernet         PROXY_METHOD=none         BROWSER_ONLY=">
+<meta name="keywords" content="hadoop安装">
 <meta property="og:type" content="article">
-<meta property="og:title" content="什么是鸡汤？">
-<meta property="og:url" content="http://yoursite.com/2018/08/16/鸡汤/index.html">
+<meta property="og:title" content="1.centos7上安装hadoop2.X集群">
+<meta property="og:url" content="http://yoursite.com/2018/09/19/1.centos7上安装hadoop2.X集群/index.html">
 <meta property="og:site_name" content="代码块工作室">
-<meta property="og:description" content="学习分什么高低贵贱，从零好好开始。 2018年8月16日10:54:09明确的说今天我们还不足够的优秀，那就多读书。    2018年8月17日09:31:36">
+<meta property="og:description" content="2.1.准备Linux环境​    1.0先将虚拟机的网络模式选为NAT 1.1修改主机名     vi /etc/hostname  1.2修改IP         vi /etc/sysconfig/network-scripts/ifcfg-ens33          TYPE=Ethernet         PROXY_METHOD=none         BROWSER_ONLY=">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-17T01:32:02.900Z">
+<meta property="og:updated_time" content="2018-09-19T09:50:47.978Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="什么是鸡汤？">
-<meta name="twitter:description" content="学习分什么高低贵贱，从零好好开始。 2018年8月16日10:54:09明确的说今天我们还不足够的优秀，那就多读书。    2018年8月17日09:31:36">
+<meta name="twitter:title" content="1.centos7上安装hadoop2.X集群">
+<meta name="twitter:description" content="2.1.准备Linux环境​    1.0先将虚拟机的网络模式选为NAT 1.1修改主机名     vi /etc/hostname  1.2修改IP         vi /etc/sysconfig/network-scripts/ifcfg-ens33          TYPE=Ethernet         PROXY_METHOD=none         BROWSER_ONLY=">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/16/鸡汤/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/19/1.centos7上安装hadoop2.X集群/"/>
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>什么是鸡汤？ | 代码块工作室</title>
+  <title>1.centos7上安装hadoop2.X集群 | 代码块工作室</title>
   
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/16/鸡汤/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/19/1.centos7上安装hadoop2.X集群/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="严亮">
@@ -314,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">什么是鸡汤？
+          <h1 class="post-title" itemprop="name headline">1.centos7上安装hadoop2.X集群
               
             
           </h1>
@@ -339,24 +339,12 @@
                 
               
 
-              <time title="Created: 2018-08-16 09:33:32" itemprop="dateCreated datePublished" datetime="2018-08-16T09:33:32+08:00">2018-08-16</time>
+              <time title="Created: 2018-09-19 17:49:34 / Modified: 17:50:47" itemprop="dateCreated datePublished" datetime="2018-09-19T17:49:34+08:00">2018-09-19</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-08-17 09:32:02" itemprop="dateModified" datetime="2018-08-17T09:32:02+08:00">2018-08-17</time>
               
             
           </span>
@@ -373,7 +361,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/鸡汤/" itemprop="url" rel="index"><span itemprop="name">鸡汤</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/大数据/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a></span>
 
                 
                 
@@ -407,9 +395,155 @@
       
 
       
-        <blockquote>
-<p>学习分什么高低贵贱，从零好好开始。 2018年8月16日10:54:09<br>明确的说今天我们还不足够的优秀，那就多读书。    2018年8月17日09:31:36 </p>
-</blockquote>
+        <p>2.1.准备Linux环境<br>​    1.0先将虚拟机的网络模式选为NAT</p>
+<pre><code>1.1修改主机名
+    vi /etc/hostname
+
+1.2修改IP
+        vi /etc/sysconfig/network-scripts/ifcfg-ens33
+
+        TYPE=Ethernet
+        PROXY_METHOD=none
+        BROWSER_ONLY=no
+        BOOTPROTO=static   ###
+        DEFROUTE=yes
+        IPV4_FAILURE_FATAL=no
+        IPV6INIT=yes
+        IPV6_AUTOCONF=yes
+        IPV6_DEFROUTE=yes
+        IPV6_FAILURE_FATAL=no
+        IPV6_ADDR_GEN_MODE=stable-privacy
+        NAME=ens33
+        UUID=43e8ca15-c8b3-41ae-b99c-e9587c763cad
+        DEVICE=ens33
+        GATEWAY=192.168.100.2  ###
+        NETMASK=255.255.255.0 ###
+        IPADDR=192.168.100.10  ###
+        DNS1=114.114.114.114 ###
+        DNS2=8.8.8.8   ###
+        DNS3=192.168.100.1  ###
+        ONBOOT=yes         ###
+</code></pre><p>​<br>​    1.3修改主机名和IP的映射关系<br>​        vim /etc/hosts<br>​<br>​        192.168.100.10 min1<br>​        192.168.100.11 min2<br>​        192.168.100.12 min3<br>​        192.168.100.13 min4<br>​<br>​    1.4关闭防火墙<br>​        systemctl stop firewalld<br>​        systemctl disable firewalld<br>​    1.5重启Linux<br>​        reboot</p>
+<p>2.安装JDK</p>
+<pre><code>2.1上传alt+p 后出现sftp窗口，然后put d:\xxx\yy\ll\jdk-8u181-linux-x64.tar.gz
+2.2解压jdk
+        #解压
+        tar -zxvf jdk-8u181-linux-x64.tar.gz
+
+2.3将java添加到环境变量中
+    vim /etc/profile
+    #在文件最后添加
+    export JAVA_HOME=/opt/jdk1.8
+    export PATH=$PATH:$JAVA_HOME/bin
+
+    #刷新配置
+    source /etc/profile
+</code></pre><p>3.安装hadoop2.6.4<br>​    先上传hadoop的安装包到服务器上去/opt<br>​    注意：hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop<br>​    伪分布式需要修改5个配置文件<br>3.1配置hadoop</p>
+<pre><code>第一个：hadoop-env.sh
+        vim hadoop-env.sh
+        #第25行
+        export JAVA_HOME=/opt/jdk1.8
+
+第二个：core-site.xml
+&lt;!-- 指定HADOOP所使用的文件系统schema（URI），HDFS的老大（NameNode）的地址 --&gt;
+    &lt;property&gt;
+        &lt;name&gt;fs.defaultFS&lt;/name&gt;
+        &lt;value&gt;hdfs://min1:9000&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;!-- 指定hadoop运行时产生文件的存储目录 --&gt;
+    &lt;property&gt;
+        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+        &lt;value&gt;/opt/hadoop-2.6.4/tmp&lt;/value&gt;
+&lt;/property&gt;
+
+第三个：hdfs-site.xml   
+    &lt;!-- 指定HDFS副本的数量 --&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.replication&lt;/name&gt;
+        &lt;value&gt;2&lt;/value&gt;
+    &lt;/property&gt;
+
+    &lt;property&gt;
+        &lt;name&gt;dfs.secondary.http.address&lt;/name&gt;
+        &lt;value&gt;192.168.1.152:50090&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;!--自己选择添加----&gt;
+     &lt;property&gt;
+        &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+        &lt;value&gt;/home/hadoop/data/name,/path2/,/path3/,nfs://&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;!---namenode配置多个目录和datanode配置多个目录，有什么区别？----&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+        &lt;value&gt;/home/hadoop/data/data,/path2/&lt;/value&gt;
+    &lt;/property&gt;
+
+第四个：mapred-site.xml (mv mapred-site.xml.template mapred-site.xml)
+    mv mapred-site.xml.template mapred-site.xml
+    vim mapred-site.xml
+    &lt;!-- 指定mr运行在yarn上 --&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+        &lt;value&gt;yarn&lt;/value&gt;
+&lt;/property&gt;
+
+第五个：yarn-site.xml
+    &lt;!-- 指定YARN的老大（ResourceManager）的地址 --&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+        &lt;value&gt;min1&lt;/value&gt;
+&lt;/property&gt;
+    &lt;!-- reducer获取数据的方式 --&gt;
+&lt;property&gt;
+        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+ &lt;/property&gt;
+
+
+
+
+3.2将hadoop添加到环境变量
+
+vim /etc/proflie
+    export JAVA_HOME=/opt/jdk1.8
+    export HADOOP_HOME=/opt/hadoop-2.6.4
+    export PATH=${PATH}:${JAVA_HOME}/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+
+source /etc/profile
+
+3.3格式化namenode（是对namenode进行初始化）
+    hdfs namenode -format (hadoop namenode -format)
+
+3.4启动hadoop
+    先启动HDFS
+    sbin/start-dfs.sh
+
+    再启动YARN
+    sbin/start-yarn.sh
+
+3.5验证是否启动成功
+    使用jps命令验证
+    27408 NameNode
+    28218 Jps
+    27643 SecondaryNameNode
+    28066 NodeManager
+    27803 ResourceManager
+    27512 DataNode
+
+    http://192.168.100.10:50070 （HDFS管理界面）
+    http://192.168.100.10:8088 （MR管理界面）
+</code></pre><p>4.配置ssh免登陆​    </p>
+<pre><code>#生成ssh免登陆密钥
+#进入到我的home目录
+cd ~/.ssh
+ssh-keygen -t rsa （四个回车）
+执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥）
+将公钥拷贝到要免密登陆的目标机器上
+ssh-copy-id localhost
+</code></pre><ol start="5">
+<li>启动命令​    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">单一的启动方式</span><br><span class="line">hadoop-daemon.sh start namenode</span><br><span class="line">hadoop-daemon.sh start datanode</span><br><span class="line">hadoop-daemon.sh start secondarynamenode</span><br><span class="line">批量启动</span><br><span class="line">	先要去修改 vi /opt/hadoop-2.6.4/etc/hadoop/slaves</span><br><span class="line">	把需要启动的主机添加到文件中</span><br><span class="line">	min1</span><br><span class="line">    min2</span><br><span class="line">    min3</span><br><span class="line">start-dfs.sh</span><br><span class="line"></span><br><span class="line">验证</span><br><span class="line">http://192.168.100.10:50070</span><br><span class="line"></span><br><span class="line">hdfs dfs -put 本地文件路径 hdfs的文件路径</span><br><span class="line">hdfs dfs -put /etc/profile /</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
       
     </div>
@@ -430,7 +564,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/鸡汤/" rel="tag"># 鸡汤</a>
+            <a href="/tags/hadoop安装/" rel="tag"># hadoop安装</a>
           
         </div>
       
@@ -443,8 +577,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/15/html/" rel="next" title="CentOS7下Tomcat启动慢的原因及解决方案">
-                <i class="fa fa-chevron-left"></i> CentOS7下Tomcat启动慢的原因及解决方案
+              <a href="/2018/08/16/鸡汤/" rel="next" title="什么是鸡汤？">
+                <i class="fa fa-chevron-left"></i> 什么是鸡汤？
               </a>
             
           </div>
@@ -453,8 +587,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/19/1.centos7上安装hadoop2.X集群/" rel="prev" title="1.centos7上安装hadoop2.X集群">
-                1.centos7上安装hadoop2.X集群 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/19/2.hdfs-shell/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
