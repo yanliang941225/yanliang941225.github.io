@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/20/2.hdfs-shell操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/4.mapreduce程序编写/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="严亮">
@@ -312,8 +312,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/20/2.hdfs-shell操作/" itemprop="url">
-                  2.hdfs-shell操作.md
+                <a class="post-title-link" href="/2018/09/26/4.mapreduce程序编写/" itemprop="url">
+                  4.mapreduce程序编写
                 </a>
               
             
@@ -339,7 +339,7 @@
                 
               
 
-              <time title="Created: 2018-09-20 10:18:32 / Modified: 11:56:31" itemprop="dateCreated datePublished" datetime="2018-09-20T10:18:32+08:00">2018-09-20</time>
+              <time title="Created: 2018-09-26 14:40:32 / Modified: 15:00:48" itemprop="dateCreated datePublished" datetime="2018-09-26T14:40:32+08:00">2018-09-26</time>
             
 
             
@@ -397,65 +397,43 @@
       
         
           
-            <p>[TOC]</p>
-<h3 id="1-hdfs命令行客户端"><a href="#1-hdfs命令行客户端" class="headerlink" title="1.hdfs命令行客户端"></a>1.hdfs命令行客户端</h3><p>HDFS提供shell命令行客户端，使用方法如下：</p>
-<p>可以使用一下两种形式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs   -…  &lt;args&gt;</span><br><span class="line">hdfs dfs    -…  &lt;args&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="2-命令行客户端支持的命令参数"><a href="#2-命令行客户端支持的命令参数" class="headerlink" title="2.命令行客户端支持的命令参数"></a>2.命令行客户端支持的命令参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[-appendToFile &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-cat [-ignoreCrc] &lt;src&gt; ...]</span><br><span class="line">[-checksum &lt;src&gt; ...]</span><br><span class="line">[-chgrp [-R] GROUP PATH...]</span><br><span class="line">[-chmod [-R] &lt;MODE[,MODE]... | OCTALMODE&gt; PATH...]</span><br><span class="line">[-chown [-R] [OWNER][:[GROUP]] PATH...]</span><br><span class="line">[-copyFromLocal [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-copyToLocal [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;]</span><br><span class="line">[-count [-q] &lt;path&gt; ...]</span><br><span class="line">[-cp [-f] [-p] &lt;src&gt; ... &lt;dst&gt;]</span><br><span class="line">[-createSnapshot &lt;snapshotDir&gt; [&lt;snapshotName&gt;]]</span><br><span class="line">[-deleteSnapshot &lt;snapshotDir&gt; &lt;snapshotName&gt;]</span><br><span class="line">[-df [-h] [&lt;path&gt; ...]]</span><br><span class="line">[-du [-s] [-h] &lt;path&gt; ...]</span><br><span class="line">[-expunge]</span><br><span class="line">[-get [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;]</span><br><span class="line">[-getfacl [-R] &lt;path&gt;]</span><br><span class="line">[-getmerge [-nl] &lt;src&gt; &lt;localdst&gt;]</span><br><span class="line">[-help [cmd ...]]</span><br><span class="line">[-ls [-d] [-h] [-R] [&lt;path&gt; ...]]</span><br><span class="line">[-mkdir [-p] &lt;path&gt; ...]</span><br><span class="line">[-moveFromLocal &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-moveToLocal &lt;src&gt; &lt;localdst&gt;]</span><br><span class="line">[-mv &lt;src&gt; ... &lt;dst&gt;]</span><br><span class="line">[-put [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-renameSnapshot &lt;snapshotDir&gt; &lt;oldName&gt; &lt;newName&gt;]</span><br><span class="line">[-rm [-f] [-r|-R] [-skipTrash] &lt;src&gt; ...]</span><br><span class="line">[-rmdir [--ignore-fail-on-non-empty] &lt;dir&gt; ...]</span><br><span class="line">[-setfacl [-R] [&#123;-b|-k&#125; &#123;-m|-x &lt;acl_spec&gt;&#125; &lt;path&gt;]|[--set &lt;acl_spec&gt; &lt;path&gt;]]</span><br><span class="line">[-setrep [-R] [-w] &lt;rep&gt; &lt;path&gt; ...]</span><br><span class="line">[-stat [format] &lt;path&gt; ...]</span><br><span class="line">[-tail [-f] &lt;file&gt;]</span><br><span class="line">[-test -[defsz] &lt;path&gt;]</span><br><span class="line">[-text [-ignoreCrc] &lt;src&gt; ...]</span><br><span class="line">[-touchz &lt;path&gt; ...]</span><br><span class="line">[-usage [cmd ...]]</span><br></pre></td></tr></table></figure>
-<h3 id="3-常用命令参数介绍"><a href="#3-常用命令参数介绍" class="headerlink" title="3.常用命令参数介绍"></a>3.常用命令参数介绍</h3><table>
-<thead>
-<tr>
-<th>-help                功能：输出这个命令参数手册</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>-ls</strong>                     <strong>功能：显示目录信息</strong>   <em>示例： hadoop fs -ls hdfs://hadoop-server01:9000/</em>   <em>备注：这些参数中，所有的hdfs**路径都可以简写</em>   <em>–&gt;hadoop fs -ls /</em>     <em>等同于上一条命令的效果</em></td>
-</tr>
-<tr>
-<td><strong>-mkdir</strong>                 <strong>功能：在hdfs**</strong>上创建目录*<em>   </em>示例：hadoop fs    -mkdir  -p    /aaa/bbb/cc/dd*</td>
-</tr>
-<tr>
-<td><strong>-moveFromLocal</strong>               <strong>功能：从本地剪切粘贴到hdfs</strong>   <em>示例：hadoop  fs  -   moveFromLocal  /home/hadoop/a.txt  /aaa/bbb/cc/dd</em>   <strong>-moveToLocal</strong>                 <strong>功能：从hdfs**</strong>剪切粘贴到本地*<em>   </em>示例：hadoop  fs  -   moveToLocal   /aaa/bbb/cc/dd  /home/hadoop/a.txt*</td>
-</tr>
-<tr>
-<td><strong>–appendToFile</strong>     <strong>功能：追加一个文件到已经存在的文件末尾</strong>   <em>示例：hadoop  fs  -appendToFile  ./hello.txt    hdfs://hadoop-server01:9000/hello.txt</em>   <em>可以简写为：</em>   <em>Hadoop  fs  -appendToFile  ./hello.txt    /hello.txt</em></td>
-</tr>
-<tr>
-<td><strong>-cat</strong>     <strong>功能：显示文件内容</strong>       <em>示例：hadoop fs -cat    /hello.txt</em>       <strong>-tail</strong>                    <strong>功能：显示一个文件的末尾</strong>   <em>示例：hadoop  fs    -tail  /weblog/access_log.1</em>   <strong>-text</strong>                     <strong>功能：以字符形式打印一个文件的内容</strong>   <em>示例：hadoop  fs    -text  /weblog/access_log.1</em></td>
-</tr>
-<tr>
-<td><strong>-chgrp</strong>    <strong>-chmod</strong>   <strong>-chown</strong>   <strong>功能：linux**</strong>文件系统中的用法一样，对文件所属权限*<em>   </em>示例：<em>   </em>hadoop  fs  -chmod    666  /hello.txt<em>   </em>hadoop  fs  -chown    someuser:somegrp   /hello.txt*</td>
-</tr>
-<tr>
-<td><strong>-copyFromLocal</strong>       <strong>功能：从本地文件系统中拷贝文件到hdfs**</strong>路径去<strong>   <em>示例：hadoop  fs  -copyFromLocal  ./jdk.tar.gz  /aaa/</em>   </strong>-copyToLocal<strong>         </strong>功能：从hdfs<strong>**拷贝到本地</strong>   <em>示例：hadoop fs -copyToLocal   /aaa/jdk.tar.gz</em></td>
-</tr>
-<tr>
-<td><strong>-cp</strong>                 <strong>功能：从hdfs**</strong>的一个路径拷贝hdfs<strong>**的另一个路径</strong>   <em>示例： hadoop  fs  -cp    /aaa/jdk.tar.gz    /bbb/jdk.tar.gz.2</em>       <strong>-mv</strong>                        <strong>功能：在hdfs**</strong>目录中移动文件*<em>   </em>示例： hadoop  fs  -mv  /aaa/jdk.tar.gz  /*</td>
-</tr>
-<tr>
-<td><strong>-get</strong>                 <strong>功能：等同于copyToLocal**</strong>，就是从hdfs<strong>**下载文件到本地</strong>   示例：hadoop fs -get  /aaa/jdk.tar.gz   <strong>-</strong>            <strong>功能：合并下载多个文件</strong>   <em>示例：<strong>比</strong></em>getmerge<strong>    *如hdfs</strong>的目录 /aaa/*<em>下有多个文件:log.1, log.2,log.3,…</em>   hadoop   fs -getmerge /aaa/log.* ./log.sum</td>
-</tr>
-<tr>
-<td><strong>-put</strong>                   <strong>功能：等同于copyFromLocal</strong>   <em>示例：hadoop  fs  -put  /aaa/jdk.tar.gz  /bbb/jdk.tar.gz.2</em></td>
-</tr>
-<tr>
-<td><strong>-rm</strong>                   <strong>功能：删除文件或文件夹</strong>   <em>示例：hadoop fs -rm   -r /aaa/bbb/</em>       <strong>-rmdir</strong>                    <strong>功能：删除空目录</strong>   <em>示例：hadoop  fs    -rmdir   /aaa/bbb/ccc</em></td>
-</tr>
-<tr>
-<td><strong>-df</strong>                  <strong>功能：统计文件系统的可用空间信息</strong>   <em>示例：hadoop  fs  -df    -h  /</em>       <strong>-du</strong>    <strong>功能：统计文件夹的大小信息</strong>   <em>示例：</em>   *hadoop  fs  -du    -s  -h /aaa/**</td>
-</tr>
-<tr>
-<td><strong>-count</strong>            <strong>功能：统计一个指定目录下的文件节点数量</strong>   <em>示例：hadoop fs -count /aaa/</em></td>
-</tr>
-<tr>
-<td><strong>-setrep</strong>                   <strong>功能：设置hdfs**</strong>中文件的副本数量*<em>   </em>示例：hadoop fs -setrep 3 /aaa/jdk.tar.gz*</td>
-</tr>
-<tr>
-<td>查看dfs集群工作状态的命令 hdfs dfsadmin -report</td>
-</tr>
-</tbody>
-</table>
+            <h1 id="MAPREDUCE-原理"><a href="#MAPREDUCE-原理" class="headerlink" title="MAPREDUCE 原理"></a>MAPREDUCE 原理</h1><p>Mapreduce 是一个分布式运算程序的*<em>编程框架<strong>，</strong>是用户开发“基于hadoop**的数据分析应用”的核心框架；</em></p>
+<p>Mapreduce<strong>核心功能</strong>是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，并发运行在一个hadoop集群上</p>
+<h2 id="为什么要MAPREDUCE"><a href="#为什么要MAPREDUCE" class="headerlink" title="为什么要MAPREDUCE"></a>为什么要MAPREDUCE</h2><p>（1）海量数据在单机上处理因为硬件资源限制，无法胜任<br>（2）而一旦将单机版程序扩展到集群来分布式运行，将极大增加程序的复杂度和开发难度<br>（3）引入mapreduce框架后，开发人员可以将绝大部分工作集中在业务逻辑的开发上，而将分布式计算中的复杂性交由框架来处理</p>
+<h2 id="流程解析"><a href="#流程解析" class="headerlink" title="流程解析"></a>流程解析</h2><p>1、    一个mr程序启动的时候，最先启动的是MRAppMaster，MRAppMaster启动后根据本次job的描述信息，计算出需要的maptask实例数量，然后向集群申请机器启动相应数量的maptask进程</p>
+<p>2、    maptask进程启动之后，根据给定的数据切片范围进行数据处理，主体流程为：<br>a)    利用客户指定的inputformat来获取RecordReader读取数据，形成输入KV对<br>b)    将输入KV对传递给客户定义的map()方法，做逻辑运算，并将map()方法输出的KV对收集到缓存<br>c)    将缓存中的KV对按照K分区排序后不断溢写到磁盘文件</p>
+<p>3、    MRAppMaster监控到所有maptask进程任务完成之后，会根据客户指定的参数启动相应数量的reducetask进程，并告知reducetask进程要处理的数据范围（数据分区）</p>
+<p>4、    Reducetask进程启动之后，根据MRAppMaster告知的待处理数据所在位置，从若干台maptask运行所在机器上获取到若干个maptask输出结果文件，并在本地进行重新归并排序，然后按照相同key的KV为一个组，调用客户定义的reduce()方法进行逻辑运算，并收集运算输出的结果KV，然后调用客户指定的outputformat将结果数据输出到外部存储</p>
+<h1 id="MAPREDUCE-实践"><a href="#MAPREDUCE-实践" class="headerlink" title="MAPREDUCE 实践"></a>MAPREDUCE 实践</h1><h2 id="MAPREDUCE-示例编写及编程规范"><a href="#MAPREDUCE-示例编写及编程规范" class="headerlink" title="MAPREDUCE 示例编写及编程规范"></a>MAPREDUCE 示例编写及编程规范</h2><p>（1）用户编写的程序分成三个部分：Mapper，Reducer，Driver(提交运行mr程序的客户端)<br>（2）Mapper的输入数据是KV对的形式（KV的类型可自定义）<br>（3）Mapper的输出数据是KV对的形式（KV的类型可自定义）<br>（4）Mapper中的业务逻辑写在map()方法中<br>（5）map()方法（maptask进程）对每一个&lt;K,V&gt;调用一次<br>（6）Reducer的输入数据类型对应Mapper的输出数据类型，也是KV<br>（7）Reducer的业务逻辑写在reduce()方法中<br>（8）Reducetask进程对每一组相同k的&lt;k,v&gt;组调用一次reduce()方法<br>（9）用户自定义的Mapper和Reducer都要继承各自的父类<br>（10）整个程序需要一个Drvier来进行提交，提交的是一个描述了各种必要信息的job对象</p>
+<h2 id="单词统计实例"><a href="#单词统计实例" class="headerlink" title="单词统计实例"></a>单词统计实例</h2><h3 id="定义一个mapper类"><a href="#定义一个mapper类" class="headerlink" title="定义一个mapper类"></a>定义一个mapper类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.codingkuai.mapreduce;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Mapper&lt;KEYIN, VALUEIN, KEYOUT, VALUEOUT&gt; 介紹</span></span><br><span class="line"><span class="comment"> * KEYIN: 是值框架读取到的数据的key类型</span></span><br><span class="line"><span class="comment"> * 		  在默认的读取数据组件InputFormat下，读取的key是一行文本的偏移量，所以key的流行是long类型的</span></span><br><span class="line"><span class="comment"> * VALUEIN：指框架读取到数据的value类型</span></span><br><span class="line"><span class="comment"> * 		在默认的读取数据组件InputFormat下，读到的value就是一行文本的内容，所以value的类型是String的</span></span><br><span class="line"><span class="comment"> * KEYOUT：是指用户自定义逻辑方法返回的数据中的key的类型 这个是由用户业务逻辑决定的。</span></span><br><span class="line"><span class="comment"> * 		在我们的单词统计当中，我们输出的是单词作为key，所以类型是String</span></span><br><span class="line"><span class="comment"> * VALUEOUT：是指用户自定义逻辑方法返回的数据中value的类型 这个是由用户业务逻辑决定的。</span></span><br><span class="line"><span class="comment"> * 		在我们的单词统计当中，我们输出的是单词数量作为value，所以类型是Integer</span></span><br><span class="line"><span class="comment"> * 但是，String, Long都是jdk中自带的数据类型，在序列化的时候，效率比较低，hadoop为了提高序列化效率，他就 自定义了一套数据类型。</span></span><br><span class="line"><span class="comment"> * Long  -&gt;  LongWritable</span></span><br><span class="line"><span class="comment"> * String -&gt; Text</span></span><br><span class="line"><span class="comment"> * Integer -&gt; IntWritable</span></span><br><span class="line"><span class="comment"> * null -&gt; NullWritable</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> yanliang</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCountMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 这个map方法就是mapreduce程序中被主题程序MapTask所调用的用户业务逻辑方法</span></span><br><span class="line"><span class="comment">	 * MapTask会驱动我们的读取数据组件InputFormat去读取数据(KEYIN，VALUE),每读取一个（K， V）,他就会传入到这个用户写的map方法中去调用一次</span></span><br><span class="line"><span class="comment">	 * 在默认的inputFormat冲突中，此处的key就是一行的起始偏移量，value就是一行的内容</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Mapper&lt;LongWritable, Text, Text, IntWritable&gt;.Context context)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">		String line = value.toString();</span><br><span class="line">		String[] split = line.split(<span class="string">" "</span>);</span><br><span class="line">		<span class="keyword">for</span> (String word : split) &#123;</span><br><span class="line">			context.write(<span class="keyword">new</span> Text(word), <span class="keyword">new</span> IntWritable(<span class="number">1</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="定义一个reducer类"><a href="#定义一个reducer类" class="headerlink" title="定义一个reducer类"></a>定义一个reducer类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.codingkuai.mapreduce;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * reducetask在调用我们的reduce方法</span></span><br><span class="line"><span class="comment"> * reducetask应该接受到map阶段中所有maptask输出的数据中的一部分</span></span><br><span class="line"><span class="comment"> * (key.hashcode % numReduceTask == 本ReduceTask编号)</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * reducetask将接受到的kv数据拿来处理时，是这样调用我们的reduce方法的：</span></span><br><span class="line"><span class="comment"> * 先将自己接受到所有kv对按照K分组（根据K是否相同）</span></span><br><span class="line"><span class="comment"> * 然后将一组kv中的K传给我们的reduce方法的key变量，把这一组kv中所有v用一个迭代器传给reduce方法的变量values</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> yanliang</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCountReduce</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values,</span></span></span><br><span class="line"><span class="function"><span class="params">			Reducer&lt;Text, IntWritable, Text, IntWritable&gt;.Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">		 </span><br><span class="line">		<span class="keyword">for</span> (IntWritable v : values) &#123;</span><br><span class="line">			<span class="keyword">int</span> i = v.get();</span><br><span class="line">			count += i;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		context.write(key, <span class="keyword">new</span> IntWritable(count));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="定义一个主类，用来描述job并提交job"><a href="#定义一个主类，用来描述job并提交job" class="headerlink" title="定义一个主类，用来描述job并提交job"></a>定义一个主类，用来描述job并提交job</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.codingkuai.mapreduce;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.TextInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本类是客户端用来指定wordCount job程序运行时候所需要的很多参数 比如：指定哪一个类左右map阶段的业务逻辑类</span></span><br><span class="line"><span class="comment">  * 哪个类作为reduce阶段的业务逻辑类 指定用那个组件作为数据的读取组件 数据结果输出组件 指定这个wordcount jar包锁在的路径</span></span><br><span class="line"><span class="comment"> * 以及其它各种所需要的参数</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> yanliang</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCountDriver</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		System.setProperty(<span class="string">"HADOOP_USER_NAME"</span>, <span class="string">"root"</span>);</span><br><span class="line">		conf.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://min1:9000"</span>);</span><br><span class="line"><span class="comment">//		conf.set("mapreduce.framework.name", "yarn");</span></span><br><span class="line"><span class="comment">//		conf.set("yarn.resourcemanager.hostname", "min1");</span></span><br><span class="line">		Job job = Job.getInstance(conf);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 告诉框架，我们的程序所有jar包的位置.linux上的路径</span></span><br><span class="line"><span class="comment">//		job.setJar("/opt/temp/wordcount.jar");</span></span><br><span class="line">		job.setJarByClass(WordCountDriver.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 告诉框架，我们程序所用的mapper和reduce类是什么</span></span><br><span class="line">		job.setMapperClass(WordCountMapper.class);</span><br><span class="line">		job.setReducerClass(WordCountReduce.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 告诉框架，我们程序输出的数据类型</span></span><br><span class="line">		job.setMapOutputKeyClass(Text.class); <span class="comment">// map阶段</span></span><br><span class="line">		job.setMapOutputValueClass(IntWritable.class);</span><br><span class="line">		job.setOutputKeyClass(Text.class); <span class="comment">// 最终结果</span></span><br><span class="line">		job.setOutputValueClass(IntWritable.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 告诉框架，我们程序使用的数据读取组件 结果输出所用的组件</span></span><br><span class="line">		<span class="comment">// TextInputFormat是mapreduce程序中内置的一种读取数据组件 准确的说叫做读取文件的输入组件</span></span><br><span class="line">		job.setInputFormatClass(TextInputFormat.class);</span><br><span class="line">		job.setOutputFormatClass(TextOutputFormat.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 告诉框架，我们要处理的数据文件在哪个路径下</span></span><br><span class="line">		FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(<span class="string">"/wordcount/input"</span>));</span><br><span class="line">		FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(<span class="string">"/wordcount/output"</span>));</span><br><span class="line"></span><br><span class="line">		<span class="keyword">boolean</span> res = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">		System.exit(res ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">		<span class="comment">// hadoop 上运行</span></span><br><span class="line">		<span class="comment">//hadoop jar wordcount.jar cn.codingkuai.mapreduce.WordCountDriver</span></span><br><span class="line">        <span class="comment">// 插件结果</span></span><br><span class="line">		<span class="comment">//hadoop fs -cat /wordcount/output/part-r-00000</span></span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 *  guo	1</span></span><br><span class="line"><span class="comment">			hello	7</span></span><br><span class="line"><span class="comment">			nihao	2</span></span><br><span class="line"><span class="comment">			Re.	1</span></span><br><span class="line"><span class="comment">			shi	1</span></span><br><span class="line"><span class="comment">			tom	1</span></span><br><span class="line"><span class="comment">			tom1	1</span></span><br><span class="line"><span class="comment">			uu	1</span></span><br><span class="line"><span class="comment">			wo	1</span></span><br><span class="line"><span class="comment">			yanliang	1</span></span><br><span class="line"><span class="comment">			zhong	1</span></span><br><span class="line"><span class="comment">			zhongguo	1</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="MAPREDUCE程序运行模式"><a href="#MAPREDUCE程序运行模式" class="headerlink" title="MAPREDUCE程序运行模式"></a>MAPREDUCE程序运行模式</h2><h3 id="本地运行模式"><a href="#本地运行模式" class="headerlink" title="本地运行模式"></a>本地运行模式</h3><p>（1）mapreduce程序是被提交给LocalJobRunner在本地以单进程的形式运行</p>
+<p>（2）而处理的数据及输出结果可以在本地文件系统，也可以在hdfs上</p>
+<p>（3）怎样实现本地运行？写一个程序，不要带集群的配置文件（本质是你的mr程序的conf中是否有mapreduce.framework.name=local以及yarn.resourcemanager.hostname参数）</p>
+<p><em>（4）<strong>本地模式非常便于进行业务逻辑的debug</strong>，只要在eclipse**中打断点即可</em></p>
+<p><em>如果在windows<strong>下想运行本地模式来测试程序逻辑，需要在windows</strong>中配置环境变量：</em></p>
+<p><em>％HADOOP_HOME**％  =  d:/hadoop-2.6.1</em></p>
+<p><em>%PATH% =</em>  <em>％HADOOP_HOME**％\bin</em></p>
+<p><em>并且要将d:/hadoop-2.6.1<strong>的lib</strong>和bin<strong>目录替换成windows</strong>平台编译的版本</em></p>
+<h1 id="项目细节"><a href="#项目细节" class="headerlink" title="项目细节"></a>项目细节</h1><h2 id="自定义对象实现MR中的序列化接口"><a href="#自定义对象实现MR中的序列化接口" class="headerlink" title="自定义对象实现MR中的序列化接口"></a>自定义对象实现MR中的序列化接口</h2><p>如果需要将自定义的bean放在key中传输，则还需要实现comparable接口，因为mapreduce框中的shuffle过程一定会对key进行排序,此时，自定义的bean实现的接口应该是：</p>
+<p>public  class  FlowBean  implements  WritableComparable<flowbean> </flowbean></p>
+<p>需要自己实现的方法是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.codingkuai;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.DataInput;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutput;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.WritableComparable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlowBean</span> <span class="keyword">implements</span> <span class="title">WritableComparable</span>&lt;<span class="title">FlowBean</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">long</span> upFlow;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">long</span> downFlow;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">long</span> sumFlow;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">FlowBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">FlowBean</span><span class="params">(<span class="keyword">long</span> upFlow, <span class="keyword">long</span> downFlow)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.upFlow = upFlow;</span><br><span class="line">		<span class="keyword">this</span>.downFlow = downFlow;</span><br><span class="line">		<span class="keyword">this</span>.sumFlow = upFlow + downFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">FlowBean</span><span class="params">(<span class="keyword">long</span> upFlow, <span class="keyword">long</span> downFlow, <span class="keyword">long</span> sumFlow)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.upFlow = upFlow;</span><br><span class="line">		<span class="keyword">this</span>.downFlow = downFlow;</span><br><span class="line">		<span class="keyword">this</span>.sumFlow = sumFlow;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">long</span> upFlow, <span class="keyword">long</span> downFlow)</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">this</span>.upFlow = upFlow;</span><br><span class="line">	    <span class="keyword">this</span>.downFlow = downFlow;</span><br><span class="line">	    <span class="keyword">this</span>.sumFlow = (upFlow + downFlow);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getUpFlow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> upFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUpFlow</span><span class="params">(<span class="keyword">long</span> upFlow)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.upFlow = upFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getDownFlow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> downFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDownFlow</span><span class="params">(<span class="keyword">long</span> downFlow)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.downFlow = downFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getSumFlow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> sumFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSumFlow</span><span class="params">(<span class="keyword">long</span> sumFlow)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.sumFlow = sumFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 序列化</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		out.writeLong(<span class="keyword">this</span>.upFlow);</span><br><span class="line">		out.writeLong(<span class="keyword">this</span>.downFlow);</span><br><span class="line">		out.writeLong(<span class="keyword">this</span>.sumFlow);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 反序列化，顺序和序列化顺序一样</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.upFlow = in.readLong();</span><br><span class="line">		<span class="keyword">this</span>.downFlow = in.readLong();</span><br><span class="line">		<span class="keyword">this</span>.sumFlow = in.readLong();</span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * TextOutputFormat组件输出结果时候调用的是toString方法</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">return</span> <span class="keyword">this</span>.upFlow + <span class="string">"\t"</span> + <span class="keyword">this</span>.downFlow + <span class="string">"\t"</span> + <span class="keyword">this</span>.sumFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(FlowBean o)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (<span class="keyword">int</span>) (o.getSumFlow() - <span class="keyword">this</span>.getSumFlow());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义partitioner"><a href="#自定义partitioner" class="headerlink" title="自定义partitioner"></a>自定义partitioner</h2><p>如果我们通过key不同去到不通文件中的需求，这时候我们需要去设置ReduceTask个数默认是一个，其次去编写分片分规则。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.codingkuai;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Partitioner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProvincePartitioner</span> <span class="keyword">extends</span> <span class="title">Partitioner</span>&lt;<span class="title">Text</span>, <span class="title">FlowBean</span>&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">static</span> HashMap&lt;String, Integer&gt; provinceMap = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line"></span><br><span class="line">		provinceMap.put(<span class="string">"135"</span>, <span class="number">0</span>);</span><br><span class="line">		provinceMap.put(<span class="string">"136"</span>, <span class="number">1</span>);</span><br><span class="line">		provinceMap.put(<span class="string">"137"</span>, <span class="number">2</span>);</span><br><span class="line">		provinceMap.put(<span class="string">"138"</span>, <span class="number">3</span>);</span><br><span class="line">		provinceMap.put(<span class="string">"139"</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPartition</span><span class="params">(Text key, FlowBean value, <span class="keyword">int</span> numPartitions)</span> </span>&#123;</span><br><span class="line">		Integer code = provinceMap.get(key.toString().substring(<span class="number">0</span>, <span class="number">3</span>));</span><br><span class="line">		<span class="keyword">return</span> code == <span class="keyword">null</span> ? <span class="number">5</span> : code;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">job.setPartitionerClass(ProvincePartitioner.class);</span><br><span class="line">job.setNumReduceTasks(<span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="MAPREDUCE中的Combiner"><a href="#MAPREDUCE中的Combiner" class="headerlink" title="MAPREDUCE中的Combiner"></a>MAPREDUCE中的Combiner</h2><p>（1）combiner是MR程序中Mapper和Reducer之外的一种组件</p>
+<p>（2）combiner组件的父类就是Reducer</p>
+<p>（3）combiner和reducer的区别在于运行的位置：</p>
+<p>Combiner是在每一个maptask所在的节点运行</p>
+<p>Reducer是接收全局所有Mapper的输出结果；</p>
+<p>(4) combiner的意义就是对每一个maptask的输出进行局部汇总，以减小网络传输量</p>
+<p>具体实现步骤：</p>
+<p>1、  自定义一个combiner继承Reducer，重写reduce方法</p>
+<p>2、  在job中设置：  job.setCombinerClass(CustomCombiner.class)</p>
+<p>(5) combiner能够应用的前提是不能影响最终的业务逻辑</p>
+<p>而且，combiner的输出kv应该跟reducer的输入kv类型要对应起来</p>
 
           
         
@@ -637,6 +615,222 @@
 <h3 id="6-hdfs客户端目录操作、查看文件夹以及文件信息"><a href="#6-hdfs客户端目录操作、查看文件夹以及文件信息" class="headerlink" title="6.hdfs客户端目录操作、查看文件夹以及文件信息"></a>6.hdfs客户端目录操作、查看文件夹以及文件信息</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查看目录信息，只显示文件</span></span><br><span class="line">RemoteIterator&lt;LocatedFileStatus&gt; listFiles = fs.listFiles(<span class="keyword">new</span> Path(<span class="string">"/"</span>), <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">while</span> (listFiles.hasNext()) &#123;</span><br><span class="line">    LocatedFileStatus fileStatus = listFiles.next();</span><br><span class="line">    System.out.println(fileStatus.getPath().getName());</span><br><span class="line">    System.out.println(fileStatus.getBlockSize());</span><br><span class="line">    System.out.println(fileStatus.getPermission());</span><br><span class="line">    System.out.println(fileStatus.getLen());</span><br><span class="line">    BlockLocation[] blockLocations = fileStatus.getBlockLocations();</span><br><span class="line">    <span class="keyword">for</span> (BlockLocation bl : blockLocations) &#123;</span><br><span class="line">        System.out.println(<span class="string">"block-length:"</span> + bl.getLength() + <span class="string">"--"</span> + <span class="string">"block-offset:"</span> + bl.getOffset());</span><br><span class="line">        String[] hosts = bl.getHosts();</span><br><span class="line">        <span class="keyword">for</span> (String host : hosts) &#123;</span><br><span class="line">            System.out.println(host);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"--------------分割线--------------"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查看文件及文件夹信息</span></span><br><span class="line">FileStatus[] listStatus = fs.listStatus(<span class="keyword">new</span> Path(<span class="string">"/"</span>));</span><br><span class="line">String flag = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (FileStatus fstatus : listStatus) &#123;</span><br><span class="line">    <span class="keyword">if</span> (fstatus.isFile()) &#123;</span><br><span class="line">        flag = <span class="string">"文件"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        flag = <span class="string">"文件夹"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(flag + fstatus.getPath().getName());</span><br><span class="line">    System.out.println(fstatus.getPermission());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hdfs支持随机定位进行文件读取，而且可以方便地读取指定长度 用于上层分布式运算框架并发处理数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 先获取一个文件的输入流----针对hdfs上的</span></span><br><span class="line">FSDataInputStream in = fs.open(<span class="keyword">new</span> Path(<span class="string">"/a.txt"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以将流的起始偏移量进行自定义</span></span><br><span class="line">in.seek(<span class="number">22</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 再构造一个文件的输出流----针对本地的</span></span><br><span class="line">FileOutputStream out = <span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(<span class="string">"d:/a.txt"</span>));</span><br><span class="line">org.apache.hadoop.io.IOUtils.copyBytes(in, out, <span class="number">19L</span>, <span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/20/2.hdfs-shell操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="严亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="代码块工作室">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/20/2.hdfs-shell操作/" itemprop="url">
+                  2.hdfs-shell操作.md
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-20 10:18:32 / Modified: 11:56:31" itemprop="dateCreated datePublished" datetime="2018-09-20T10:18:32+08:00">2018-09-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/大数据/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>[TOC]</p>
+<h3 id="1-hdfs命令行客户端"><a href="#1-hdfs命令行客户端" class="headerlink" title="1.hdfs命令行客户端"></a>1.hdfs命令行客户端</h3><p>HDFS提供shell命令行客户端，使用方法如下：</p>
+<p>可以使用一下两种形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs   -…  &lt;args&gt;</span><br><span class="line">hdfs dfs    -…  &lt;args&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-命令行客户端支持的命令参数"><a href="#2-命令行客户端支持的命令参数" class="headerlink" title="2.命令行客户端支持的命令参数"></a>2.命令行客户端支持的命令参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[-appendToFile &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-cat [-ignoreCrc] &lt;src&gt; ...]</span><br><span class="line">[-checksum &lt;src&gt; ...]</span><br><span class="line">[-chgrp [-R] GROUP PATH...]</span><br><span class="line">[-chmod [-R] &lt;MODE[,MODE]... | OCTALMODE&gt; PATH...]</span><br><span class="line">[-chown [-R] [OWNER][:[GROUP]] PATH...]</span><br><span class="line">[-copyFromLocal [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-copyToLocal [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;]</span><br><span class="line">[-count [-q] &lt;path&gt; ...]</span><br><span class="line">[-cp [-f] [-p] &lt;src&gt; ... &lt;dst&gt;]</span><br><span class="line">[-createSnapshot &lt;snapshotDir&gt; [&lt;snapshotName&gt;]]</span><br><span class="line">[-deleteSnapshot &lt;snapshotDir&gt; &lt;snapshotName&gt;]</span><br><span class="line">[-df [-h] [&lt;path&gt; ...]]</span><br><span class="line">[-du [-s] [-h] &lt;path&gt; ...]</span><br><span class="line">[-expunge]</span><br><span class="line">[-get [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;]</span><br><span class="line">[-getfacl [-R] &lt;path&gt;]</span><br><span class="line">[-getmerge [-nl] &lt;src&gt; &lt;localdst&gt;]</span><br><span class="line">[-help [cmd ...]]</span><br><span class="line">[-ls [-d] [-h] [-R] [&lt;path&gt; ...]]</span><br><span class="line">[-mkdir [-p] &lt;path&gt; ...]</span><br><span class="line">[-moveFromLocal &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-moveToLocal &lt;src&gt; &lt;localdst&gt;]</span><br><span class="line">[-mv &lt;src&gt; ... &lt;dst&gt;]</span><br><span class="line">[-put [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-renameSnapshot &lt;snapshotDir&gt; &lt;oldName&gt; &lt;newName&gt;]</span><br><span class="line">[-rm [-f] [-r|-R] [-skipTrash] &lt;src&gt; ...]</span><br><span class="line">[-rmdir [--ignore-fail-on-non-empty] &lt;dir&gt; ...]</span><br><span class="line">[-setfacl [-R] [&#123;-b|-k&#125; &#123;-m|-x &lt;acl_spec&gt;&#125; &lt;path&gt;]|[--set &lt;acl_spec&gt; &lt;path&gt;]]</span><br><span class="line">[-setrep [-R] [-w] &lt;rep&gt; &lt;path&gt; ...]</span><br><span class="line">[-stat [format] &lt;path&gt; ...]</span><br><span class="line">[-tail [-f] &lt;file&gt;]</span><br><span class="line">[-test -[defsz] &lt;path&gt;]</span><br><span class="line">[-text [-ignoreCrc] &lt;src&gt; ...]</span><br><span class="line">[-touchz &lt;path&gt; ...]</span><br><span class="line">[-usage [cmd ...]]</span><br></pre></td></tr></table></figure>
+<h3 id="3-常用命令参数介绍"><a href="#3-常用命令参数介绍" class="headerlink" title="3.常用命令参数介绍"></a>3.常用命令参数介绍</h3><table>
+<thead>
+<tr>
+<th>-help                功能：输出这个命令参数手册</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>-ls</strong>                     <strong>功能：显示目录信息</strong>   <em>示例： hadoop fs -ls hdfs://hadoop-server01:9000/</em>   <em>备注：这些参数中，所有的hdfs**路径都可以简写</em>   <em>–&gt;hadoop fs -ls /</em>     <em>等同于上一条命令的效果</em></td>
+</tr>
+<tr>
+<td><strong>-mkdir</strong>                 <strong>功能：在hdfs**</strong>上创建目录*<em>   </em>示例：hadoop fs    -mkdir  -p    /aaa/bbb/cc/dd*</td>
+</tr>
+<tr>
+<td><strong>-moveFromLocal</strong>               <strong>功能：从本地剪切粘贴到hdfs</strong>   <em>示例：hadoop  fs  -   moveFromLocal  /home/hadoop/a.txt  /aaa/bbb/cc/dd</em>   <strong>-moveToLocal</strong>                 <strong>功能：从hdfs**</strong>剪切粘贴到本地*<em>   </em>示例：hadoop  fs  -   moveToLocal   /aaa/bbb/cc/dd  /home/hadoop/a.txt*</td>
+</tr>
+<tr>
+<td><strong>–appendToFile</strong>     <strong>功能：追加一个文件到已经存在的文件末尾</strong>   <em>示例：hadoop  fs  -appendToFile  ./hello.txt    hdfs://hadoop-server01:9000/hello.txt</em>   <em>可以简写为：</em>   <em>Hadoop  fs  -appendToFile  ./hello.txt    /hello.txt</em></td>
+</tr>
+<tr>
+<td><strong>-cat</strong>     <strong>功能：显示文件内容</strong>       <em>示例：hadoop fs -cat    /hello.txt</em>       <strong>-tail</strong>                    <strong>功能：显示一个文件的末尾</strong>   <em>示例：hadoop  fs    -tail  /weblog/access_log.1</em>   <strong>-text</strong>                     <strong>功能：以字符形式打印一个文件的内容</strong>   <em>示例：hadoop  fs    -text  /weblog/access_log.1</em></td>
+</tr>
+<tr>
+<td><strong>-chgrp</strong>    <strong>-chmod</strong>   <strong>-chown</strong>   <strong>功能：linux**</strong>文件系统中的用法一样，对文件所属权限*<em>   </em>示例：<em>   </em>hadoop  fs  -chmod    666  /hello.txt<em>   </em>hadoop  fs  -chown    someuser:somegrp   /hello.txt*</td>
+</tr>
+<tr>
+<td><strong>-copyFromLocal</strong>       <strong>功能：从本地文件系统中拷贝文件到hdfs**</strong>路径去<strong>   <em>示例：hadoop  fs  -copyFromLocal  ./jdk.tar.gz  /aaa/</em>   </strong>-copyToLocal<strong>         </strong>功能：从hdfs<strong>**拷贝到本地</strong>   <em>示例：hadoop fs -copyToLocal   /aaa/jdk.tar.gz</em></td>
+</tr>
+<tr>
+<td><strong>-cp</strong>                 <strong>功能：从hdfs**</strong>的一个路径拷贝hdfs<strong>**的另一个路径</strong>   <em>示例： hadoop  fs  -cp    /aaa/jdk.tar.gz    /bbb/jdk.tar.gz.2</em>       <strong>-mv</strong>                        <strong>功能：在hdfs**</strong>目录中移动文件*<em>   </em>示例： hadoop  fs  -mv  /aaa/jdk.tar.gz  /*</td>
+</tr>
+<tr>
+<td><strong>-get</strong>                 <strong>功能：等同于copyToLocal**</strong>，就是从hdfs<strong>**下载文件到本地</strong>   示例：hadoop fs -get  /aaa/jdk.tar.gz   <strong>-</strong>            <strong>功能：合并下载多个文件</strong>   <em>示例：<strong>比</strong></em>getmerge<strong>    *如hdfs</strong>的目录 /aaa/*<em>下有多个文件:log.1, log.2,log.3,…</em>   hadoop   fs -getmerge /aaa/log.* ./log.sum</td>
+</tr>
+<tr>
+<td><strong>-put</strong>                   <strong>功能：等同于copyFromLocal</strong>   <em>示例：hadoop  fs  -put  /aaa/jdk.tar.gz  /bbb/jdk.tar.gz.2</em></td>
+</tr>
+<tr>
+<td><strong>-rm</strong>                   <strong>功能：删除文件或文件夹</strong>   <em>示例：hadoop fs -rm   -r /aaa/bbb/</em>       <strong>-rmdir</strong>                    <strong>功能：删除空目录</strong>   <em>示例：hadoop  fs    -rmdir   /aaa/bbb/ccc</em></td>
+</tr>
+<tr>
+<td><strong>-df</strong>                  <strong>功能：统计文件系统的可用空间信息</strong>   <em>示例：hadoop  fs  -df    -h  /</em>       <strong>-du</strong>    <strong>功能：统计文件夹的大小信息</strong>   <em>示例：</em>   *hadoop  fs  -du    -s  -h /aaa/**</td>
+</tr>
+<tr>
+<td><strong>-count</strong>            <strong>功能：统计一个指定目录下的文件节点数量</strong>   <em>示例：hadoop fs -count /aaa/</em></td>
+</tr>
+<tr>
+<td><strong>-setrep</strong>                   <strong>功能：设置hdfs**</strong>中文件的副本数量*<em>   </em>示例：hadoop fs -setrep 3 /aaa/jdk.tar.gz*</td>
+</tr>
+<tr>
+<td>查看dfs集群工作状态的命令 hdfs dfsadmin -report</td>
+</tr>
+</tbody>
+</table>
 
           
         
@@ -1208,7 +1402,7 @@ ssh-copy-id localhost
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1248,7 +1442,9 @@ ssh-copy-id localhost
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
