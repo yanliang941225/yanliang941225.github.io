@@ -562,7 +562,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-28 14:28:03" itemprop="dateModified" datetime="2018-09-28T14:28:03+08:00">2018-09-28</time>
+                <time title="Modified: 2018-09-28 14:28:56" itemprop="dateModified" datetime="2018-09-28T14:28:56+08:00">2018-09-28</time>
               
             
           </span>
@@ -618,187 +618,6 @@
             <p>Hive只在一个节点上安装即可</p>
 <h1 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">参考：http://www.cnblogs.com/starof/p/4680083.html</span><br></pre></td></tr></table></figure>
 <h1 id="配置hive"><a href="#配置hive" class="headerlink" title="配置hive"></a>配置hive</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">（a）配置HIVE_HOME环境变量  vi conf/hive-env.sh 配置其中的$hadoop_home</span><br><span class="line">	HADOOP_HOME=/opt/hadoop-2.6.4</span><br><span class="line">（b）配置元数据库信息   vi  hive-site.xml </span><br><span class="line">	添加如下内容：</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</span><br><span class="line">&lt;value&gt;jdbc:mysql://127.0.0.1:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;</span><br><span class="line">&lt;description&gt;JDBC connect string for a JDBC metastore&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</span><br><span class="line">&lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</span><br><span class="line">&lt;description&gt;Driver class name for a JDBC metastore&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</span><br><span class="line">&lt;value&gt;root&lt;/value&gt;</span><br><span class="line">&lt;description&gt;username to use against metastore database&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;</span><br><span class="line">&lt;value&gt;963852&lt;/value&gt;</span><br><span class="line">&lt;description&gt;password to use against metastore database&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"></span><br><span class="line">（C）Jline包版本不一致的问题，需要拷贝hive的lib目录中jline.2.12.jar的jar包替换掉hadoop中的 </span><br><span class="line">	cp jline-2.12.jar /opt/hadoop-2.6.4/share/hadoop/yarn/lib/</span><br><span class="line"></span><br><span class="line">(d) 添加环境变量 vi /etc/profile</span><br><span class="line">    export JAVA_HOME=/opt/jdk1.8</span><br><span class="line">    export HADOOP_HOME=/opt/hadoop-2.6.4</span><br><span class="line">    export HIVE_HOME=/opt/hive</span><br><span class="line">    export 	PATH=$&#123;PATH&#125;:$&#123;JAVA_HOME&#125;/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HIVE_HOME/bin</span><br><span class="line"></span><br><span class="line">. /etc/profile </span><br><span class="line"></span><br><span class="line">(e） mysql驱动添加到lib目录下</span><br><span class="line">(f) 启动</span><br><span class="line">	hive</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/20/3.hdfs-javaAPI/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="严亮">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="代码块工作室">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/20/3.hdfs-javaAPI/" itemprop="url">
-                  3.hdfs-javaAPI
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-09-20 10:18:32 / Modified: 11:56:24" itemprop="dateCreated datePublished" datetime="2018-09-20T10:18:32+08:00">2018-09-20</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/大数据/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>[TOC]</p>
-<h3 id="1-java操作hdfs环境搭建"><a href="#1-java操作hdfs环境搭建" class="headerlink" title="1.java操作hdfs环境搭建"></a>1.java操作hdfs环境搭建</h3><h4 id="1-1创建mvn项目添加依赖"><a href="#1-1创建mvn项目添加依赖" class="headerlink" title="1.1创建mvn项目添加依赖"></a>1.1创建mvn项目添加依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;hadoop-common&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.6.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;hadoop-hdfs&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.6.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;hadoop-client&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.6.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;jdk.tools&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;jdk.tools&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.6&lt;/version&gt;</span><br><span class="line">	&lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">	&lt;systemPath&gt;$&#123;JAVA_HOME&#125;/lib/tools.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="1-2测试"><a href="#1-2测试" class="headerlink" title="1.2测试"></a>1.2测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取/路径下面的所有文件</span></span><br><span class="line">Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">configuration.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://min1:9000"</span>);</span><br><span class="line">FileSystem fs = FileSystem.get(configuration);</span><br><span class="line">RemoteIterator&lt;LocatedFileStatus&gt; listFiles = fs.listFiles(<span class="keyword">new</span> Path(<span class="string">"/"</span>), <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">while</span>(listFiles.hasNext()) &#123;</span><br><span class="line">	LocatedFileStatus fileStatus = listFiles.next();</span><br><span class="line">	String name = fileStatus.getPath().getName(); <span class="comment">//打印文件名</span></span><br><span class="line">	System.out.println(name);</span><br><span class="line">&#125;</span><br><span class="line">fs.close();</span><br></pre></td></tr></table></figure>
-<h4 id="1-3结果"><a href="#1-3结果" class="headerlink" title="1.3结果"></a>1.3结果</h4><p>每个人的结果不同。本人的下面有三个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">linux.log</span><br><span class="line">windows.log</span><br><span class="line">profile</span><br></pre></td></tr></table></figure>
-<h3 id="2-hdfs客户端权限身份伪造的问题"><a href="#2-hdfs客户端权限身份伪造的问题" class="headerlink" title="2.hdfs客户端权限身份伪造的问题"></a>2.hdfs客户端权限身份伪造的问题</h3><p>为什么需要权限身份伪造？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 执行下面代码，需求是把本地文件上传到hdfs的/路径下</span><br><span class="line">fs.copyFromLocalFile(new Path(&quot;d://a.txt&quot;), new Path(&quot;/&quot;));</span><br><span class="line">fs.close();</span><br></pre></td></tr></table></figure>
-<p>不幸的是报错了，说Administrator这个用户没有/的权限，/路径的用户是root组是supergroup，所有我们现在需要去伪造用户成root.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=Administrator, access=WRITE, inode=&quot;/&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.checkFsPermission(FSPermissionChecker.java:271)</span><br></pre></td></tr></table></figure>
-<p>处理方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">方式一：</span><br><span class="line">   		Configuration configuration = new Configuration();</span><br><span class="line">		configuration.set(&quot;fs.defaultFS&quot;, &quot;hdfs://min1:9000&quot;);</span><br><span class="line">		try &#123;</span><br><span class="line">			System.setProperty(&quot;HADOOP_USER_NAME&quot;, &quot;root&quot;);</span><br><span class="line">			fs = FileSystem.get(configuration);</span><br><span class="line">		&#125; catch (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		注意：System.setProperty(&quot;HADOOP_USER_NAME&quot;, &quot;root&quot;);只能放在fs = FileSystem.get(configuration);前面，不然你就彩蛋了。</span><br><span class="line">方式二：</span><br><span class="line">	Configuration configuration = new Configuration();</span><br><span class="line">	fs = FileSystem.get(new URI(&quot;hdfs://min1:9000&quot;), configuration, &quot;root&quot;);</span><br><span class="line"></span><br><span class="line">方式三：百度一下</span><br></pre></td></tr></table></figure>
-<h3 id="3-windows平台下开发hadoop需要注意的细节"><a href="#3-windows平台下开发hadoop需要注意的细节" class="headerlink" title="3.windows平台下开发hadoop需要注意的细节"></a>3.windows平台下开发hadoop需要注意的细节</h3><p>运行下面代码把hdfs中文件拷贝到windows下。下载功能</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fs.copyToLocalFile(new Path(&quot;/a.txt&quot;), new Path(&quot;d:/&quot;));</span><br><span class="line">fs.close();</span><br></pre></td></tr></table></figure>
-<p>我去又报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.NullPointerException</span><br><span class="line">	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1012)</span><br><span class="line">	at org.apache.hadoop.util.Shell.runCommand(Shell.java:482)</span><br><span class="line">	at org.apache.hadoop.util.Shell.run(Shell.java:455)</span><br><span class="line">	at org.apache.hadoop.util.Shell$ShellCommandExecutor.execute(Shell.java:715)</span><br><span class="line">	at org.apache.hadoop.util.Shell.execCommand(Shell.java:808)</span><br><span class="line">	at org.apache.hadoop.util.Shell.execCommand(Shell.java:791)</span><br><span class="line">	at org.apache.hadoop.fs.RawLocalFileSystem.setPermission(RawLocalFileSystem.java:659)</span><br><span class="line">	at org.apache.hadoop.fs.FilterFileSystem.setPermission(FilterFileSystem.java:490)</span><br><span class="line">	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:462)</span><br><span class="line">	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:428)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:908)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:889)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:786)</span><br><span class="line">	at org.apache.hadoop.fs.FileUtil.copy(FileUtil.java:365)</span><br><span class="line">	at org.apache.hadoop.fs.FileUtil.copy(FileUtil.java:338)</span><br><span class="line">	at org.apache.hadoop.fs.FileUtil.copy(FileUtil.java:289)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.copyToLocalFile(FileSystem.java:1970)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.copyToLocalFile(FileSystem.java:1939)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.copyToLocalFile(FileSystem.java:1915)</span><br><span class="line">	at cn.mytest.hdfs.TestHDFS.main(TestHDFS.java:30)</span><br></pre></td></tr></table></figure>
-<p>原因：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop要与windows打交道，需要通过和windows的相关的类库进行交互操作文件。而本地不存在hadoop交互的类库。</span><br></pre></td></tr></table></figure>
-<p>建议：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">方式一：</span><br><span class="line">建议在linux下进行hadoop应用的开发，不会存在兼容性问题。如在window上做客户端应用开发，需要设置以下环境：</span><br><span class="line">A、用给的windows平台下编译的hadoop安装包解压一份到windows的任意一个目录下</span><br><span class="line">B、在window系统中配置HADOOP_HOME指向你解压的安装包目录</span><br><span class="line">C、在windows系统的path变量中加入HADOOP_HOME的bin目录</span><br><span class="line"></span><br><span class="line">方式二:</span><br><span class="line">采用java自己的io直接写入文件</span><br><span class="line">fs.copyToLocalFile(false, new Path(&quot;/a.txt&quot;), new Path(&quot;d:/&quot;), true);</span><br></pre></td></tr></table></figure>
-<h3 id="4-hdfs客户端文件上传"><a href="#4-hdfs客户端文件上传" class="headerlink" title="4.hdfs客户端文件上传"></a>4.hdfs客户端文件上传</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">FileSystem fs = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Before</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 构造一个配置参数对象，设置一个参数：我们要访问的hdfs的URI</span></span><br><span class="line">		<span class="comment">// 从而FileSystem.get()方法就知道应该是去构造一个访问hdfs文件系统的客户端，以及hdfs的访问地址</span></span><br><span class="line">		<span class="comment">// new Configuration();的时候，它就会去加载jar包中的hdfs-default.xml</span></span><br><span class="line">		<span class="comment">// 然后再加载classpath下的hdfs-site.xml</span></span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		<span class="comment">// conf.set("fs.defaultFS", "hdfs://mini1:9000");</span></span><br><span class="line">		<span class="comment">//参数优先级： 1、客户端代码中设置的值 2、classpath下的用户自定义配置文件 3、然后是服务器的默认配置</span></span><br><span class="line">		<span class="comment">/*conf.set("dfs.replication", "2");</span></span><br><span class="line"><span class="comment">		conf.set("dfs.block.size", "64m");*/</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 获取一个hdfs的访问客户端，根据参数，这个实例应该是DistributedFileSystem的实例</span></span><br><span class="line">		<span class="comment">// fs = FileSystem.get(conf);</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 如果这样去获取，那conf里面就可以不要配"fs.defaultFS"参数，而且，这个客户端的身份标识已经是root用户</span></span><br><span class="line">		fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://mini1:9000"</span>), conf, <span class="string">"root"</span>);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">方式一：</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAddFileToHdfs</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Path src = <span class="keyword">new</span> Path(<span class="string">"d://a.txt"</span>);</span><br><span class="line">		Path dst = <span class="keyword">new</span> Path(<span class="string">"/"</span>);</span><br><span class="line">		fs.copyFromLocalFile(src, dst);</span><br><span class="line"></span><br><span class="line">		fs.close();</span><br><span class="line">	&#125;</span><br><span class="line">方式二流:</span><br><span class="line">	FileInputStream in = <span class="keyword">new</span> FileInputStream(<span class="string">"d://a.txt"</span>);</span><br><span class="line">	Path path = <span class="keyword">new</span> Path(<span class="string">"/aa.txt"</span>);</span><br><span class="line">	FSDataOutputStream out = fs.create(path);</span><br><span class="line">	IOUtils.copy(in, out);</span><br><span class="line">	fs.close();</span><br></pre></td></tr></table></figure>
-<h3 id="5-hdfs客户端文件下载"><a href="#5-hdfs客户端文件下载" class="headerlink" title="5.hdfs客户端文件下载"></a>5.hdfs客户端文件下载</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">方式一:</span><br><span class="line">    fs.copyToLocalFile(<span class="keyword">false</span>, <span class="keyword">new</span> Path(<span class="string">"/a.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"d:/"</span>), <span class="keyword">true</span>);</span><br><span class="line">    fs.close();</span><br><span class="line">方式二流：</span><br><span class="line">    FSDataInputStream in = fs.open(<span class="keyword">new</span> Path(<span class="string">"/a.txt"</span>));</span><br><span class="line">    FileOutputStream out = <span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(<span class="string">"d:/a.txt"</span>));</span><br><span class="line">    IOUtils.copy(in, out);</span><br><span class="line">    fs.close();</span><br></pre></td></tr></table></figure>
-<h3 id="6-hdfs客户端目录操作、查看文件夹以及文件信息"><a href="#6-hdfs客户端目录操作、查看文件夹以及文件信息" class="headerlink" title="6.hdfs客户端目录操作、查看文件夹以及文件信息"></a>6.hdfs客户端目录操作、查看文件夹以及文件信息</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查看目录信息，只显示文件</span></span><br><span class="line">RemoteIterator&lt;LocatedFileStatus&gt; listFiles = fs.listFiles(<span class="keyword">new</span> Path(<span class="string">"/"</span>), <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">while</span> (listFiles.hasNext()) &#123;</span><br><span class="line">    LocatedFileStatus fileStatus = listFiles.next();</span><br><span class="line">    System.out.println(fileStatus.getPath().getName());</span><br><span class="line">    System.out.println(fileStatus.getBlockSize());</span><br><span class="line">    System.out.println(fileStatus.getPermission());</span><br><span class="line">    System.out.println(fileStatus.getLen());</span><br><span class="line">    BlockLocation[] blockLocations = fileStatus.getBlockLocations();</span><br><span class="line">    <span class="keyword">for</span> (BlockLocation bl : blockLocations) &#123;</span><br><span class="line">        System.out.println(<span class="string">"block-length:"</span> + bl.getLength() + <span class="string">"--"</span> + <span class="string">"block-offset:"</span> + bl.getOffset());</span><br><span class="line">        String[] hosts = bl.getHosts();</span><br><span class="line">        <span class="keyword">for</span> (String host : hosts) &#123;</span><br><span class="line">            System.out.println(host);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"--------------分割线--------------"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查看文件及文件夹信息</span></span><br><span class="line">FileStatus[] listStatus = fs.listStatus(<span class="keyword">new</span> Path(<span class="string">"/"</span>));</span><br><span class="line">String flag = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (FileStatus fstatus : listStatus) &#123;</span><br><span class="line">    <span class="keyword">if</span> (fstatus.isFile()) &#123;</span><br><span class="line">        flag = <span class="string">"文件"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        flag = <span class="string">"文件夹"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(flag + fstatus.getPath().getName());</span><br><span class="line">    System.out.println(fstatus.getPermission());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hdfs支持随机定位进行文件读取，而且可以方便地读取指定长度 用于上层分布式运算框架并发处理数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 先获取一个文件的输入流----针对hdfs上的</span></span><br><span class="line">FSDataInputStream in = fs.open(<span class="keyword">new</span> Path(<span class="string">"/a.txt"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以将流的起始偏移量进行自定义</span></span><br><span class="line">in.seek(<span class="number">22</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 再构造一个文件的输出流----针对本地的</span></span><br><span class="line">FileOutputStream out = <span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(<span class="string">"d:/a.txt"</span>));</span><br><span class="line">org.apache.hadoop.io.IOUtils.copyBytes(in, out, <span class="number">19L</span>, <span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1015,6 +834,187 @@
 </tr>
 </tbody>
 </table>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/20/3.hdfs-javaAPI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="严亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="代码块工作室">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/20/3.hdfs-javaAPI/" itemprop="url">
+                  3.hdfs-javaAPI
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-20 10:18:32 / Modified: 11:56:24" itemprop="dateCreated datePublished" datetime="2018-09-20T10:18:32+08:00">2018-09-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/大数据/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>[TOC]</p>
+<h3 id="1-java操作hdfs环境搭建"><a href="#1-java操作hdfs环境搭建" class="headerlink" title="1.java操作hdfs环境搭建"></a>1.java操作hdfs环境搭建</h3><h4 id="1-1创建mvn项目添加依赖"><a href="#1-1创建mvn项目添加依赖" class="headerlink" title="1.1创建mvn项目添加依赖"></a>1.1创建mvn项目添加依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;hadoop-common&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.6.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;hadoop-hdfs&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.6.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;hadoop-client&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.6.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;jdk.tools&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;jdk.tools&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.6&lt;/version&gt;</span><br><span class="line">	&lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">	&lt;systemPath&gt;$&#123;JAVA_HOME&#125;/lib/tools.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="1-2测试"><a href="#1-2测试" class="headerlink" title="1.2测试"></a>1.2测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取/路径下面的所有文件</span></span><br><span class="line">Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">configuration.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://min1:9000"</span>);</span><br><span class="line">FileSystem fs = FileSystem.get(configuration);</span><br><span class="line">RemoteIterator&lt;LocatedFileStatus&gt; listFiles = fs.listFiles(<span class="keyword">new</span> Path(<span class="string">"/"</span>), <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">while</span>(listFiles.hasNext()) &#123;</span><br><span class="line">	LocatedFileStatus fileStatus = listFiles.next();</span><br><span class="line">	String name = fileStatus.getPath().getName(); <span class="comment">//打印文件名</span></span><br><span class="line">	System.out.println(name);</span><br><span class="line">&#125;</span><br><span class="line">fs.close();</span><br></pre></td></tr></table></figure>
+<h4 id="1-3结果"><a href="#1-3结果" class="headerlink" title="1.3结果"></a>1.3结果</h4><p>每个人的结果不同。本人的下面有三个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">linux.log</span><br><span class="line">windows.log</span><br><span class="line">profile</span><br></pre></td></tr></table></figure>
+<h3 id="2-hdfs客户端权限身份伪造的问题"><a href="#2-hdfs客户端权限身份伪造的问题" class="headerlink" title="2.hdfs客户端权限身份伪造的问题"></a>2.hdfs客户端权限身份伪造的问题</h3><p>为什么需要权限身份伪造？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 执行下面代码，需求是把本地文件上传到hdfs的/路径下</span><br><span class="line">fs.copyFromLocalFile(new Path(&quot;d://a.txt&quot;), new Path(&quot;/&quot;));</span><br><span class="line">fs.close();</span><br></pre></td></tr></table></figure>
+<p>不幸的是报错了，说Administrator这个用户没有/的权限，/路径的用户是root组是supergroup，所有我们现在需要去伪造用户成root.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.apache.hadoop.security.AccessControlException: Permission denied: user=Administrator, access=WRITE, inode=&quot;/&quot;:root:supergroup:drwxr-xr-x</span><br><span class="line">	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.checkFsPermission(FSPermissionChecker.java:271)</span><br></pre></td></tr></table></figure>
+<p>处理方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">方式一：</span><br><span class="line">   		Configuration configuration = new Configuration();</span><br><span class="line">		configuration.set(&quot;fs.defaultFS&quot;, &quot;hdfs://min1:9000&quot;);</span><br><span class="line">		try &#123;</span><br><span class="line">			System.setProperty(&quot;HADOOP_USER_NAME&quot;, &quot;root&quot;);</span><br><span class="line">			fs = FileSystem.get(configuration);</span><br><span class="line">		&#125; catch (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		注意：System.setProperty(&quot;HADOOP_USER_NAME&quot;, &quot;root&quot;);只能放在fs = FileSystem.get(configuration);前面，不然你就彩蛋了。</span><br><span class="line">方式二：</span><br><span class="line">	Configuration configuration = new Configuration();</span><br><span class="line">	fs = FileSystem.get(new URI(&quot;hdfs://min1:9000&quot;), configuration, &quot;root&quot;);</span><br><span class="line"></span><br><span class="line">方式三：百度一下</span><br></pre></td></tr></table></figure>
+<h3 id="3-windows平台下开发hadoop需要注意的细节"><a href="#3-windows平台下开发hadoop需要注意的细节" class="headerlink" title="3.windows平台下开发hadoop需要注意的细节"></a>3.windows平台下开发hadoop需要注意的细节</h3><p>运行下面代码把hdfs中文件拷贝到windows下。下载功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fs.copyToLocalFile(new Path(&quot;/a.txt&quot;), new Path(&quot;d:/&quot;));</span><br><span class="line">fs.close();</span><br></pre></td></tr></table></figure>
+<p>我去又报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.NullPointerException</span><br><span class="line">	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1012)</span><br><span class="line">	at org.apache.hadoop.util.Shell.runCommand(Shell.java:482)</span><br><span class="line">	at org.apache.hadoop.util.Shell.run(Shell.java:455)</span><br><span class="line">	at org.apache.hadoop.util.Shell$ShellCommandExecutor.execute(Shell.java:715)</span><br><span class="line">	at org.apache.hadoop.util.Shell.execCommand(Shell.java:808)</span><br><span class="line">	at org.apache.hadoop.util.Shell.execCommand(Shell.java:791)</span><br><span class="line">	at org.apache.hadoop.fs.RawLocalFileSystem.setPermission(RawLocalFileSystem.java:659)</span><br><span class="line">	at org.apache.hadoop.fs.FilterFileSystem.setPermission(FilterFileSystem.java:490)</span><br><span class="line">	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:462)</span><br><span class="line">	at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:428)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:908)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:889)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.create(FileSystem.java:786)</span><br><span class="line">	at org.apache.hadoop.fs.FileUtil.copy(FileUtil.java:365)</span><br><span class="line">	at org.apache.hadoop.fs.FileUtil.copy(FileUtil.java:338)</span><br><span class="line">	at org.apache.hadoop.fs.FileUtil.copy(FileUtil.java:289)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.copyToLocalFile(FileSystem.java:1970)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.copyToLocalFile(FileSystem.java:1939)</span><br><span class="line">	at org.apache.hadoop.fs.FileSystem.copyToLocalFile(FileSystem.java:1915)</span><br><span class="line">	at cn.mytest.hdfs.TestHDFS.main(TestHDFS.java:30)</span><br></pre></td></tr></table></figure>
+<p>原因：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop要与windows打交道，需要通过和windows的相关的类库进行交互操作文件。而本地不存在hadoop交互的类库。</span><br></pre></td></tr></table></figure>
+<p>建议：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">方式一：</span><br><span class="line">建议在linux下进行hadoop应用的开发，不会存在兼容性问题。如在window上做客户端应用开发，需要设置以下环境：</span><br><span class="line">A、用给的windows平台下编译的hadoop安装包解压一份到windows的任意一个目录下</span><br><span class="line">B、在window系统中配置HADOOP_HOME指向你解压的安装包目录</span><br><span class="line">C、在windows系统的path变量中加入HADOOP_HOME的bin目录</span><br><span class="line"></span><br><span class="line">方式二:</span><br><span class="line">采用java自己的io直接写入文件</span><br><span class="line">fs.copyToLocalFile(false, new Path(&quot;/a.txt&quot;), new Path(&quot;d:/&quot;), true);</span><br></pre></td></tr></table></figure>
+<h3 id="4-hdfs客户端文件上传"><a href="#4-hdfs客户端文件上传" class="headerlink" title="4.hdfs客户端文件上传"></a>4.hdfs客户端文件上传</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">FileSystem fs = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Before</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 构造一个配置参数对象，设置一个参数：我们要访问的hdfs的URI</span></span><br><span class="line">		<span class="comment">// 从而FileSystem.get()方法就知道应该是去构造一个访问hdfs文件系统的客户端，以及hdfs的访问地址</span></span><br><span class="line">		<span class="comment">// new Configuration();的时候，它就会去加载jar包中的hdfs-default.xml</span></span><br><span class="line">		<span class="comment">// 然后再加载classpath下的hdfs-site.xml</span></span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		<span class="comment">// conf.set("fs.defaultFS", "hdfs://mini1:9000");</span></span><br><span class="line">		<span class="comment">//参数优先级： 1、客户端代码中设置的值 2、classpath下的用户自定义配置文件 3、然后是服务器的默认配置</span></span><br><span class="line">		<span class="comment">/*conf.set("dfs.replication", "2");</span></span><br><span class="line"><span class="comment">		conf.set("dfs.block.size", "64m");*/</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 获取一个hdfs的访问客户端，根据参数，这个实例应该是DistributedFileSystem的实例</span></span><br><span class="line">		<span class="comment">// fs = FileSystem.get(conf);</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 如果这样去获取，那conf里面就可以不要配"fs.defaultFS"参数，而且，这个客户端的身份标识已经是root用户</span></span><br><span class="line">		fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://mini1:9000"</span>), conf, <span class="string">"root"</span>);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">方式一：</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAddFileToHdfs</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Path src = <span class="keyword">new</span> Path(<span class="string">"d://a.txt"</span>);</span><br><span class="line">		Path dst = <span class="keyword">new</span> Path(<span class="string">"/"</span>);</span><br><span class="line">		fs.copyFromLocalFile(src, dst);</span><br><span class="line"></span><br><span class="line">		fs.close();</span><br><span class="line">	&#125;</span><br><span class="line">方式二流:</span><br><span class="line">	FileInputStream in = <span class="keyword">new</span> FileInputStream(<span class="string">"d://a.txt"</span>);</span><br><span class="line">	Path path = <span class="keyword">new</span> Path(<span class="string">"/aa.txt"</span>);</span><br><span class="line">	FSDataOutputStream out = fs.create(path);</span><br><span class="line">	IOUtils.copy(in, out);</span><br><span class="line">	fs.close();</span><br></pre></td></tr></table></figure>
+<h3 id="5-hdfs客户端文件下载"><a href="#5-hdfs客户端文件下载" class="headerlink" title="5.hdfs客户端文件下载"></a>5.hdfs客户端文件下载</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">方式一:</span><br><span class="line">    fs.copyToLocalFile(<span class="keyword">false</span>, <span class="keyword">new</span> Path(<span class="string">"/a.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"d:/"</span>), <span class="keyword">true</span>);</span><br><span class="line">    fs.close();</span><br><span class="line">方式二流：</span><br><span class="line">    FSDataInputStream in = fs.open(<span class="keyword">new</span> Path(<span class="string">"/a.txt"</span>));</span><br><span class="line">    FileOutputStream out = <span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(<span class="string">"d:/a.txt"</span>));</span><br><span class="line">    IOUtils.copy(in, out);</span><br><span class="line">    fs.close();</span><br></pre></td></tr></table></figure>
+<h3 id="6-hdfs客户端目录操作、查看文件夹以及文件信息"><a href="#6-hdfs客户端目录操作、查看文件夹以及文件信息" class="headerlink" title="6.hdfs客户端目录操作、查看文件夹以及文件信息"></a>6.hdfs客户端目录操作、查看文件夹以及文件信息</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查看目录信息，只显示文件</span></span><br><span class="line">RemoteIterator&lt;LocatedFileStatus&gt; listFiles = fs.listFiles(<span class="keyword">new</span> Path(<span class="string">"/"</span>), <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">while</span> (listFiles.hasNext()) &#123;</span><br><span class="line">    LocatedFileStatus fileStatus = listFiles.next();</span><br><span class="line">    System.out.println(fileStatus.getPath().getName());</span><br><span class="line">    System.out.println(fileStatus.getBlockSize());</span><br><span class="line">    System.out.println(fileStatus.getPermission());</span><br><span class="line">    System.out.println(fileStatus.getLen());</span><br><span class="line">    BlockLocation[] blockLocations = fileStatus.getBlockLocations();</span><br><span class="line">    <span class="keyword">for</span> (BlockLocation bl : blockLocations) &#123;</span><br><span class="line">        System.out.println(<span class="string">"block-length:"</span> + bl.getLength() + <span class="string">"--"</span> + <span class="string">"block-offset:"</span> + bl.getOffset());</span><br><span class="line">        String[] hosts = bl.getHosts();</span><br><span class="line">        <span class="keyword">for</span> (String host : hosts) &#123;</span><br><span class="line">            System.out.println(host);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"--------------分割线--------------"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查看文件及文件夹信息</span></span><br><span class="line">FileStatus[] listStatus = fs.listStatus(<span class="keyword">new</span> Path(<span class="string">"/"</span>));</span><br><span class="line">String flag = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (FileStatus fstatus : listStatus) &#123;</span><br><span class="line">    <span class="keyword">if</span> (fstatus.isFile()) &#123;</span><br><span class="line">        flag = <span class="string">"文件"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        flag = <span class="string">"文件夹"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(flag + fstatus.getPath().getName());</span><br><span class="line">    System.out.println(fstatus.getPermission());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hdfs支持随机定位进行文件读取，而且可以方便地读取指定长度 用于上层分布式运算框架并发处理数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 先获取一个文件的输入流----针对hdfs上的</span></span><br><span class="line">FSDataInputStream in = fs.open(<span class="keyword">new</span> Path(<span class="string">"/a.txt"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以将流的起始偏移量进行自定义</span></span><br><span class="line">in.seek(<span class="number">22</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 再构造一个文件的输出流----针对本地的</span></span><br><span class="line">FileOutputStream out = <span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(<span class="string">"d:/a.txt"</span>));</span><br><span class="line">org.apache.hadoop.io.IOUtils.copyBytes(in, out, <span class="number">19L</span>, <span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
 
           
         
