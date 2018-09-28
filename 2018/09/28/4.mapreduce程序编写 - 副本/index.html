@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="MAPREDUCE 原理Mapreduce 是一个分布式运算程序的*编程框架，是用户开发“基于hadoop**的数据分析应用”的核心框架； Mapreduce核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，并发运行在一个hadoop集群上 为什么要MAPREDUCE（1）海量数据在单机上处理因为硬件资源限制，无法胜任（2）而一旦将单机版程序扩展到集群来分布式运行，将">
+<meta name="keywords" content="大数据,java,mapreduce">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.mapreduce程序编写">
+<meta property="og:url" content="http://yoursite.com/2018/09/28/4.mapreduce程序编写 - 副本/index.html">
+<meta property="og:site_name" content="代码块工作室">
+<meta property="og:description" content="MAPREDUCE 原理Mapreduce 是一个分布式运算程序的*编程框架，是用户开发“基于hadoop**的数据分析应用”的核心框架； Mapreduce核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，并发运行在一个hadoop集群上 为什么要MAPREDUCE（1）海量数据在单机上处理因为硬件资源限制，无法胜任（2）而一旦将单机版程序扩展到集群来分布式运行，将">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-26T07:01:55.204Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4.mapreduce程序编写">
+<meta name="twitter:description" content="MAPREDUCE 原理Mapreduce 是一个分布式运算程序的*编程框架，是用户开发“基于hadoop**的数据分析应用”的核心框架； Mapreduce核心功能是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，并发运行在一个hadoop集群上 为什么要MAPREDUCE（1）海量数据在单机上处理因为硬件资源限制，无法胜任（2）而一旦将单机版程序扩展到集群来分布式运行，将">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/28/4.mapreduce程序编写 - 副本/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>4.mapreduce程序编写 | 代码块工作室</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">代码块工作室</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/28/4.mapreduce程序编写 - 副本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="严亮">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="代码块工作室">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">4.mapreduce程序编写
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-28 14:19:08" itemprop="dateCreated datePublished" datetime="2018-09-28T14:19:08+08:00">2018-09-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-26 15:01:55" itemprop="dateModified" datetime="2018-09-26T15:01:55+08:00">2018-09-26</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/大数据/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MAPREDUCE-原理"><a href="#MAPREDUCE-原理" class="headerlink" title="MAPREDUCE 原理"></a>MAPREDUCE 原理</h1><p>Mapreduce 是一个分布式运算程序的*<em>编程框架<strong>，</strong>是用户开发“基于hadoop**的数据分析应用”的核心框架；</em></p>
+<p>Mapreduce<strong>核心功能</strong>是将用户编写的业务逻辑代码和自带默认组件整合成一个完整的分布式运算程序，并发运行在一个hadoop集群上</p>
+<h2 id="为什么要MAPREDUCE"><a href="#为什么要MAPREDUCE" class="headerlink" title="为什么要MAPREDUCE"></a>为什么要MAPREDUCE</h2><p>（1）海量数据在单机上处理因为硬件资源限制，无法胜任<br>（2）而一旦将单机版程序扩展到集群来分布式运行，将极大增加程序的复杂度和开发难度<br>（3）引入mapreduce框架后，开发人员可以将绝大部分工作集中在业务逻辑的开发上，而将分布式计算中的复杂性交由框架来处理</p>
+<h2 id="流程解析"><a href="#流程解析" class="headerlink" title="流程解析"></a>流程解析</h2><p>1、    一个mr程序启动的时候，最先启动的是MRAppMaster，MRAppMaster启动后根据本次job的描述信息，计算出需要的maptask实例数量，然后向集群申请机器启动相应数量的maptask进程</p>
+<p>2、    maptask进程启动之后，根据给定的数据切片范围进行数据处理，主体流程为：<br>a)    利用客户指定的inputformat来获取RecordReader读取数据，形成输入KV对<br>b)    将输入KV对传递给客户定义的map()方法，做逻辑运算，并将map()方法输出的KV对收集到缓存<br>c)    将缓存中的KV对按照K分区排序后不断溢写到磁盘文件</p>
+<p>3、    MRAppMaster监控到所有maptask进程任务完成之后，会根据客户指定的参数启动相应数量的reducetask进程，并告知reducetask进程要处理的数据范围（数据分区）</p>
+<p>4、    Reducetask进程启动之后，根据MRAppMaster告知的待处理数据所在位置，从若干台maptask运行所在机器上获取到若干个maptask输出结果文件，并在本地进行重新归并排序，然后按照相同key的KV为一个组，调用客户定义的reduce()方法进行逻辑运算，并收集运算输出的结果KV，然后调用客户指定的outputformat将结果数据输出到外部存储</p>
+<h1 id="MAPREDUCE-实践"><a href="#MAPREDUCE-实践" class="headerlink" title="MAPREDUCE 实践"></a>MAPREDUCE 实践</h1><h2 id="MAPREDUCE-示例编写及编程规范"><a href="#MAPREDUCE-示例编写及编程规范" class="headerlink" title="MAPREDUCE 示例编写及编程规范"></a>MAPREDUCE 示例编写及编程规范</h2><p>（1）用户编写的程序分成三个部分：Mapper，Reducer，Driver(提交运行mr程序的客户端)<br>（2）Mapper的输入数据是KV对的形式（KV的类型可自定义）<br>（3）Mapper的输出数据是KV对的形式（KV的类型可自定义）<br>（4）Mapper中的业务逻辑写在map()方法中<br>（5）map()方法（maptask进程）对每一个&lt;K,V&gt;调用一次<br>（6）Reducer的输入数据类型对应Mapper的输出数据类型，也是KV<br>（7）Reducer的业务逻辑写在reduce()方法中<br>（8）Reducetask进程对每一组相同k的&lt;k,v&gt;组调用一次reduce()方法<br>（9）用户自定义的Mapper和Reducer都要继承各自的父类<br>（10）整个程序需要一个Drvier来进行提交，提交的是一个描述了各种必要信息的job对象</p>
+<h2 id="单词统计实例"><a href="#单词统计实例" class="headerlink" title="单词统计实例"></a>单词统计实例</h2><h3 id="定义一个mapper类"><a href="#定义一个mapper类" class="headerlink" title="定义一个mapper类"></a>定义一个mapper类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.codingkuai.mapreduce;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Mapper&lt;KEYIN, VALUEIN, KEYOUT, VALUEOUT&gt; 介紹</span></span><br><span class="line"><span class="comment"> * KEYIN: 是值框架读取到的数据的key类型</span></span><br><span class="line"><span class="comment"> * 		  在默认的读取数据组件InputFormat下，读取的key是一行文本的偏移量，所以key的流行是long类型的</span></span><br><span class="line"><span class="comment"> * VALUEIN：指框架读取到数据的value类型</span></span><br><span class="line"><span class="comment"> * 		在默认的读取数据组件InputFormat下，读到的value就是一行文本的内容，所以value的类型是String的</span></span><br><span class="line"><span class="comment"> * KEYOUT：是指用户自定义逻辑方法返回的数据中的key的类型 这个是由用户业务逻辑决定的。</span></span><br><span class="line"><span class="comment"> * 		在我们的单词统计当中，我们输出的是单词作为key，所以类型是String</span></span><br><span class="line"><span class="comment"> * VALUEOUT：是指用户自定义逻辑方法返回的数据中value的类型 这个是由用户业务逻辑决定的。</span></span><br><span class="line"><span class="comment"> * 		在我们的单词统计当中，我们输出的是单词数量作为value，所以类型是Integer</span></span><br><span class="line"><span class="comment"> * 但是，String, Long都是jdk中自带的数据类型，在序列化的时候，效率比较低，hadoop为了提高序列化效率，他就 自定义了一套数据类型。</span></span><br><span class="line"><span class="comment"> * Long  -&gt;  LongWritable</span></span><br><span class="line"><span class="comment"> * String -&gt; Text</span></span><br><span class="line"><span class="comment"> * Integer -&gt; IntWritable</span></span><br><span class="line"><span class="comment"> * null -&gt; NullWritable</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> yanliang</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCountMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;</span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 这个map方法就是mapreduce程序中被主题程序MapTask所调用的用户业务逻辑方法</span></span><br><span class="line"><span class="comment">	 * MapTask会驱动我们的读取数据组件InputFormat去读取数据(KEYIN，VALUE),每读取一个（K， V）,他就会传入到这个用户写的map方法中去调用一次</span></span><br><span class="line"><span class="comment">	 * 在默认的inputFormat冲突中，此处的key就是一行的起始偏移量，value就是一行的内容</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Mapper&lt;LongWritable, Text, Text, IntWritable&gt;.Context context)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">		String line = value.toString();</span><br><span class="line">		String[] split = line.split(<span class="string">" "</span>);</span><br><span class="line">		<span class="keyword">for</span> (String word : split) &#123;</span><br><span class="line">			context.write(<span class="keyword">new</span> Text(word), <span class="keyword">new</span> IntWritable(<span class="number">1</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="定义一个reducer类"><a href="#定义一个reducer类" class="headerlink" title="定义一个reducer类"></a>定义一个reducer类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.codingkuai.mapreduce;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * reducetask在调用我们的reduce方法</span></span><br><span class="line"><span class="comment"> * reducetask应该接受到map阶段中所有maptask输出的数据中的一部分</span></span><br><span class="line"><span class="comment"> * (key.hashcode % numReduceTask == 本ReduceTask编号)</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * reducetask将接受到的kv数据拿来处理时，是这样调用我们的reduce方法的：</span></span><br><span class="line"><span class="comment"> * 先将自己接受到所有kv对按照K分组（根据K是否相同）</span></span><br><span class="line"><span class="comment"> * 然后将一组kv中的K传给我们的reduce方法的key变量，把这一组kv中所有v用一个迭代器传给reduce方法的变量values</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> yanliang</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCountReduce</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values,</span></span></span><br><span class="line"><span class="function"><span class="params">			Reducer&lt;Text, IntWritable, Text, IntWritable&gt;.Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">		 </span><br><span class="line">		<span class="keyword">for</span> (IntWritable v : values) &#123;</span><br><span class="line">			<span class="keyword">int</span> i = v.get();</span><br><span class="line">			count += i;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		context.write(key, <span class="keyword">new</span> IntWritable(count));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="定义一个主类，用来描述job并提交job"><a href="#定义一个主类，用来描述job并提交job" class="headerlink" title="定义一个主类，用来描述job并提交job"></a>定义一个主类，用来描述job并提交job</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.codingkuai.mapreduce;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.TextInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本类是客户端用来指定wordCount job程序运行时候所需要的很多参数 比如：指定哪一个类左右map阶段的业务逻辑类</span></span><br><span class="line"><span class="comment">  * 哪个类作为reduce阶段的业务逻辑类 指定用那个组件作为数据的读取组件 数据结果输出组件 指定这个wordcount jar包锁在的路径</span></span><br><span class="line"><span class="comment"> * 以及其它各种所需要的参数</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> yanliang</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCountDriver</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		System.setProperty(<span class="string">"HADOOP_USER_NAME"</span>, <span class="string">"root"</span>);</span><br><span class="line">		conf.set(<span class="string">"fs.defaultFS"</span>, <span class="string">"hdfs://min1:9000"</span>);</span><br><span class="line"><span class="comment">//		conf.set("mapreduce.framework.name", "yarn");</span></span><br><span class="line"><span class="comment">//		conf.set("yarn.resourcemanager.hostname", "min1");</span></span><br><span class="line">		Job job = Job.getInstance(conf);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 告诉框架，我们的程序所有jar包的位置.linux上的路径</span></span><br><span class="line"><span class="comment">//		job.setJar("/opt/temp/wordcount.jar");</span></span><br><span class="line">		job.setJarByClass(WordCountDriver.class);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 告诉框架，我们程序所用的mapper和reduce类是什么</span></span><br><span class="line">		job.setMapperClass(WordCountMapper.class);</span><br><span class="line">		job.setReducerClass(WordCountReduce.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 告诉框架，我们程序输出的数据类型</span></span><br><span class="line">		job.setMapOutputKeyClass(Text.class); <span class="comment">// map阶段</span></span><br><span class="line">		job.setMapOutputValueClass(IntWritable.class);</span><br><span class="line">		job.setOutputKeyClass(Text.class); <span class="comment">// 最终结果</span></span><br><span class="line">		job.setOutputValueClass(IntWritable.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 告诉框架，我们程序使用的数据读取组件 结果输出所用的组件</span></span><br><span class="line">		<span class="comment">// TextInputFormat是mapreduce程序中内置的一种读取数据组件 准确的说叫做读取文件的输入组件</span></span><br><span class="line">		job.setInputFormatClass(TextInputFormat.class);</span><br><span class="line">		job.setOutputFormatClass(TextOutputFormat.class);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 告诉框架，我们要处理的数据文件在哪个路径下</span></span><br><span class="line">		FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(<span class="string">"/wordcount/input"</span>));</span><br><span class="line">		FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(<span class="string">"/wordcount/output"</span>));</span><br><span class="line"></span><br><span class="line">		<span class="keyword">boolean</span> res = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">		System.exit(res ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">		<span class="comment">// hadoop 上运行</span></span><br><span class="line">		<span class="comment">//hadoop jar wordcount.jar cn.codingkuai.mapreduce.WordCountDriver</span></span><br><span class="line">        <span class="comment">// 插件结果</span></span><br><span class="line">		<span class="comment">//hadoop fs -cat /wordcount/output/part-r-00000</span></span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 *  guo	1</span></span><br><span class="line"><span class="comment">			hello	7</span></span><br><span class="line"><span class="comment">			nihao	2</span></span><br><span class="line"><span class="comment">			Re.	1</span></span><br><span class="line"><span class="comment">			shi	1</span></span><br><span class="line"><span class="comment">			tom	1</span></span><br><span class="line"><span class="comment">			tom1	1</span></span><br><span class="line"><span class="comment">			uu	1</span></span><br><span class="line"><span class="comment">			wo	1</span></span><br><span class="line"><span class="comment">			yanliang	1</span></span><br><span class="line"><span class="comment">			zhong	1</span></span><br><span class="line"><span class="comment">			zhongguo	1</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="MAPREDUCE程序运行模式"><a href="#MAPREDUCE程序运行模式" class="headerlink" title="MAPREDUCE程序运行模式"></a>MAPREDUCE程序运行模式</h2><h3 id="本地运行模式"><a href="#本地运行模式" class="headerlink" title="本地运行模式"></a>本地运行模式</h3><p>（1）mapreduce程序是被提交给LocalJobRunner在本地以单进程的形式运行</p>
+<p>（2）而处理的数据及输出结果可以在本地文件系统，也可以在hdfs上</p>
+<p>（3）怎样实现本地运行？写一个程序，不要带集群的配置文件（本质是你的mr程序的conf中是否有mapreduce.framework.name=local以及yarn.resourcemanager.hostname参数）</p>
+<p><em>（4）<strong>本地模式非常便于进行业务逻辑的debug</strong>，只要在eclipse**中打断点即可</em></p>
+<p><em>如果在windows<strong>下想运行本地模式来测试程序逻辑，需要在windows</strong>中配置环境变量：</em></p>
+<p><em>％HADOOP_HOME**％  =  d:/hadoop-2.6.1</em></p>
+<p><em>%PATH% =</em>  <em>％HADOOP_HOME**％\bin</em></p>
+<p><em>并且要将d:/hadoop-2.6.1<strong>的lib</strong>和bin<strong>目录替换成windows</strong>平台编译的版本</em></p>
+<h1 id="项目细节"><a href="#项目细节" class="headerlink" title="项目细节"></a>项目细节</h1><h2 id="自定义对象实现MR中的序列化接口"><a href="#自定义对象实现MR中的序列化接口" class="headerlink" title="自定义对象实现MR中的序列化接口"></a>自定义对象实现MR中的序列化接口</h2><p>如果需要将自定义的bean放在key中传输，则还需要实现comparable接口，因为mapreduce框中的shuffle过程一定会对key进行排序,此时，自定义的bean实现的接口应该是：</p>
+<p>public  class  FlowBean  implements  WritableComparable<flowbean> </flowbean></p>
+<p>需要自己实现的方法是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.codingkuai;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.DataInput;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutput;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.WritableComparable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlowBean</span> <span class="keyword">implements</span> <span class="title">WritableComparable</span>&lt;<span class="title">FlowBean</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">long</span> upFlow;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">long</span> downFlow;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">long</span> sumFlow;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">FlowBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">FlowBean</span><span class="params">(<span class="keyword">long</span> upFlow, <span class="keyword">long</span> downFlow)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.upFlow = upFlow;</span><br><span class="line">		<span class="keyword">this</span>.downFlow = downFlow;</span><br><span class="line">		<span class="keyword">this</span>.sumFlow = upFlow + downFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">FlowBean</span><span class="params">(<span class="keyword">long</span> upFlow, <span class="keyword">long</span> downFlow, <span class="keyword">long</span> sumFlow)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.upFlow = upFlow;</span><br><span class="line">		<span class="keyword">this</span>.downFlow = downFlow;</span><br><span class="line">		<span class="keyword">this</span>.sumFlow = sumFlow;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">long</span> upFlow, <span class="keyword">long</span> downFlow)</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">this</span>.upFlow = upFlow;</span><br><span class="line">	    <span class="keyword">this</span>.downFlow = downFlow;</span><br><span class="line">	    <span class="keyword">this</span>.sumFlow = (upFlow + downFlow);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getUpFlow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> upFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUpFlow</span><span class="params">(<span class="keyword">long</span> upFlow)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.upFlow = upFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getDownFlow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> downFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDownFlow</span><span class="params">(<span class="keyword">long</span> downFlow)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.downFlow = downFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getSumFlow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> sumFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSumFlow</span><span class="params">(<span class="keyword">long</span> sumFlow)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.sumFlow = sumFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 序列化</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		out.writeLong(<span class="keyword">this</span>.upFlow);</span><br><span class="line">		out.writeLong(<span class="keyword">this</span>.downFlow);</span><br><span class="line">		out.writeLong(<span class="keyword">this</span>.sumFlow);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 反序列化，顺序和序列化顺序一样</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.upFlow = in.readLong();</span><br><span class="line">		<span class="keyword">this</span>.downFlow = in.readLong();</span><br><span class="line">		<span class="keyword">this</span>.sumFlow = in.readLong();</span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * TextOutputFormat组件输出结果时候调用的是toString方法</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">return</span> <span class="keyword">this</span>.upFlow + <span class="string">"\t"</span> + <span class="keyword">this</span>.downFlow + <span class="string">"\t"</span> + <span class="keyword">this</span>.sumFlow;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(FlowBean o)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (<span class="keyword">int</span>) (o.getSumFlow() - <span class="keyword">this</span>.getSumFlow());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义partitioner"><a href="#自定义partitioner" class="headerlink" title="自定义partitioner"></a>自定义partitioner</h2><p>如果我们通过key不同去到不通文件中的需求，这时候我们需要去设置ReduceTask个数默认是一个，其次去编写分片分规则。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.codingkuai;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Partitioner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProvincePartitioner</span> <span class="keyword">extends</span> <span class="title">Partitioner</span>&lt;<span class="title">Text</span>, <span class="title">FlowBean</span>&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">static</span> HashMap&lt;String, Integer&gt; provinceMap = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line"></span><br><span class="line">		provinceMap.put(<span class="string">"135"</span>, <span class="number">0</span>);</span><br><span class="line">		provinceMap.put(<span class="string">"136"</span>, <span class="number">1</span>);</span><br><span class="line">		provinceMap.put(<span class="string">"137"</span>, <span class="number">2</span>);</span><br><span class="line">		provinceMap.put(<span class="string">"138"</span>, <span class="number">3</span>);</span><br><span class="line">		provinceMap.put(<span class="string">"139"</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPartition</span><span class="params">(Text key, FlowBean value, <span class="keyword">int</span> numPartitions)</span> </span>&#123;</span><br><span class="line">		Integer code = provinceMap.get(key.toString().substring(<span class="number">0</span>, <span class="number">3</span>));</span><br><span class="line">		<span class="keyword">return</span> code == <span class="keyword">null</span> ? <span class="number">5</span> : code;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">job.setPartitionerClass(ProvincePartitioner.class);</span><br><span class="line">job.setNumReduceTasks(<span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="MAPREDUCE中的Combiner"><a href="#MAPREDUCE中的Combiner" class="headerlink" title="MAPREDUCE中的Combiner"></a>MAPREDUCE中的Combiner</h2><p>（1）combiner是MR程序中Mapper和Reducer之外的一种组件</p>
+<p>（2）combiner组件的父类就是Reducer</p>
+<p>（3）combiner和reducer的区别在于运行的位置：</p>
+<p>Combiner是在每一个maptask所在的节点运行</p>
+<p>Reducer是接收全局所有Mapper的输出结果；</p>
+<p>(4) combiner的意义就是对每一个maptask的输出进行局部汇总，以减小网络传输量</p>
+<p>具体实现步骤：</p>
+<p>1、  自定义一个combiner继承Reducer，重写reduce方法</p>
+<p>2、  在job中设置：  job.setCombinerClass(CustomCombiner.class)</p>
+<p>(5) combiner能够应用的前提是不能影响最终的业务逻辑</p>
+<p>而且，combiner的输出kv应该跟reducer的输入kv类型要对应起来</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/大数据/" rel="tag"># 大数据</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/mapreduce/" rel="tag"># mapreduce</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/26/5.hive安装/" rel="next" title="5.hive安装">
+                <i class="fa fa-chevron-left"></i> 5.hive安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">严亮</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MAPREDUCE-原理"><span class="nav-number">1.</span> <span class="nav-text">MAPREDUCE 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要MAPREDUCE"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要MAPREDUCE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程解析"><span class="nav-number">1.2.</span> <span class="nav-text">流程解析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MAPREDUCE-实践"><span class="nav-number">2.</span> <span class="nav-text">MAPREDUCE 实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MAPREDUCE-示例编写及编程规范"><span class="nav-number">2.1.</span> <span class="nav-text">MAPREDUCE 示例编写及编程规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单词统计实例"><span class="nav-number">2.2.</span> <span class="nav-text">单词统计实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义一个mapper类"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义一个mapper类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义一个reducer类"><span class="nav-number">2.2.2.</span> <span class="nav-text">定义一个reducer类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义一个主类，用来描述job并提交job"><span class="nav-number">2.2.3.</span> <span class="nav-text">定义一个主类，用来描述job并提交job</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAPREDUCE程序运行模式"><span class="nav-number">2.3.</span> <span class="nav-text">MAPREDUCE程序运行模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地运行模式"><span class="nav-number">2.3.1.</span> <span class="nav-text">本地运行模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目细节"><span class="nav-number">3.</span> <span class="nav-text">项目细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义对象实现MR中的序列化接口"><span class="nav-number">3.1.</span> <span class="nav-text">自定义对象实现MR中的序列化接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义partitioner"><span class="nav-number">3.2.</span> <span class="nav-text">自定义partitioner</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAPREDUCE中的Combiner"><span class="nav-number">3.3.</span> <span class="nav-text">MAPREDUCE中的Combiner</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">严亮</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

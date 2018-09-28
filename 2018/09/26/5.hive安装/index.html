@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="[TOC] 1.hdfs命令行客户端HDFS提供shell命令行客户端，使用方法如下： 可以使用一下两种形式： 12hadoop fs   -…  &amp;lt;args&amp;gt;hdfs dfs    -…  &amp;lt;args&amp;gt; 2.命令行客户端支持的命令参数123456789101112131415161718192021222324252627282930313233343536[-appen">
-<meta name="keywords" content="大数据,hdfs">
+  <meta name="description" content="Hive只在一个节点上安装即可 安装mysql1参考：http://www.cnblogs.com/starof/p/4680083.html 配置hive1234567891011121314151617181920212223242526272829303132333435363738394041424344（a）配置HIVE_HOME环境变量  vi conf/hive-env.sh 配置其">
+<meta name="keywords" content="大数据,hive,java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2.hdfs-shell操作.md">
-<meta property="og:url" content="http://yoursite.com/2018/09/20/2.hdfs-shell操作/index.html">
+<meta property="og:title" content="5.hive安装">
+<meta property="og:url" content="http://yoursite.com/2018/09/26/5.hive安装/index.html">
 <meta property="og:site_name" content="代码块工作室">
-<meta property="og:description" content="[TOC] 1.hdfs命令行客户端HDFS提供shell命令行客户端，使用方法如下： 可以使用一下两种形式： 12hadoop fs   -…  &amp;lt;args&amp;gt;hdfs dfs    -…  &amp;lt;args&amp;gt; 2.命令行客户端支持的命令参数123456789101112131415161718192021222324252627282930313233343536[-appen">
+<meta property="og:description" content="Hive只在一个节点上安装即可 安装mysql1参考：http://www.cnblogs.com/starof/p/4680083.html 配置hive1234567891011121314151617181920212223242526272829303132333435363738394041424344（a）配置HIVE_HOME环境变量  vi conf/hive-env.sh 配置其">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-20T03:56:31.032Z">
+<meta property="og:updated_time" content="2018-09-28T06:26:09.538Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2.hdfs-shell操作.md">
-<meta name="twitter:description" content="[TOC] 1.hdfs命令行客户端HDFS提供shell命令行客户端，使用方法如下： 可以使用一下两种形式： 12hadoop fs   -…  &amp;lt;args&amp;gt;hdfs dfs    -…  &amp;lt;args&amp;gt; 2.命令行客户端支持的命令参数123456789101112131415161718192021222324252627282930313233343536[-appen">
+<meta name="twitter:title" content="5.hive安装">
+<meta name="twitter:description" content="Hive只在一个节点上安装即可 安装mysql1参考：http://www.cnblogs.com/starof/p/4680083.html 配置hive1234567891011121314151617181920212223242526272829303132333435363738394041424344（a）配置HIVE_HOME环境变量  vi conf/hive-env.sh 配置其">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/20/2.hdfs-shell操作/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/26/5.hive安装/"/>
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>2.hdfs-shell操作.md | 代码块工作室</title>
+  <title>5.hive安装 | 代码块工作室</title>
   
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/20/2.hdfs-shell操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/5.hive安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="严亮">
@@ -314,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2.hdfs-shell操作.md
+          <h1 class="post-title" itemprop="name headline">5.hive安装
               
             
           </h1>
@@ -339,12 +339,24 @@
                 
               
 
-              <time title="Created: 2018-09-20 10:18:32 / Modified: 11:56:31" itemprop="dateCreated datePublished" datetime="2018-09-20T10:18:32+08:00">2018-09-20</time>
+              <time title="Created: 2018-09-26 14:40:32" itemprop="dateCreated datePublished" datetime="2018-09-26T14:40:32+08:00">2018-09-26</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-28 14:26:09" itemprop="dateModified" datetime="2018-09-28T14:26:09+08:00">2018-09-28</time>
               
             
           </span>
@@ -395,65 +407,9 @@
       
 
       
-        <p>[TOC]</p>
-<h3 id="1-hdfs命令行客户端"><a href="#1-hdfs命令行客户端" class="headerlink" title="1.hdfs命令行客户端"></a>1.hdfs命令行客户端</h3><p>HDFS提供shell命令行客户端，使用方法如下：</p>
-<p>可以使用一下两种形式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs   -…  &lt;args&gt;</span><br><span class="line">hdfs dfs    -…  &lt;args&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="2-命令行客户端支持的命令参数"><a href="#2-命令行客户端支持的命令参数" class="headerlink" title="2.命令行客户端支持的命令参数"></a>2.命令行客户端支持的命令参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[-appendToFile &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-cat [-ignoreCrc] &lt;src&gt; ...]</span><br><span class="line">[-checksum &lt;src&gt; ...]</span><br><span class="line">[-chgrp [-R] GROUP PATH...]</span><br><span class="line">[-chmod [-R] &lt;MODE[,MODE]... | OCTALMODE&gt; PATH...]</span><br><span class="line">[-chown [-R] [OWNER][:[GROUP]] PATH...]</span><br><span class="line">[-copyFromLocal [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-copyToLocal [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;]</span><br><span class="line">[-count [-q] &lt;path&gt; ...]</span><br><span class="line">[-cp [-f] [-p] &lt;src&gt; ... &lt;dst&gt;]</span><br><span class="line">[-createSnapshot &lt;snapshotDir&gt; [&lt;snapshotName&gt;]]</span><br><span class="line">[-deleteSnapshot &lt;snapshotDir&gt; &lt;snapshotName&gt;]</span><br><span class="line">[-df [-h] [&lt;path&gt; ...]]</span><br><span class="line">[-du [-s] [-h] &lt;path&gt; ...]</span><br><span class="line">[-expunge]</span><br><span class="line">[-get [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;]</span><br><span class="line">[-getfacl [-R] &lt;path&gt;]</span><br><span class="line">[-getmerge [-nl] &lt;src&gt; &lt;localdst&gt;]</span><br><span class="line">[-help [cmd ...]]</span><br><span class="line">[-ls [-d] [-h] [-R] [&lt;path&gt; ...]]</span><br><span class="line">[-mkdir [-p] &lt;path&gt; ...]</span><br><span class="line">[-moveFromLocal &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-moveToLocal &lt;src&gt; &lt;localdst&gt;]</span><br><span class="line">[-mv &lt;src&gt; ... &lt;dst&gt;]</span><br><span class="line">[-put [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line">[-renameSnapshot &lt;snapshotDir&gt; &lt;oldName&gt; &lt;newName&gt;]</span><br><span class="line">[-rm [-f] [-r|-R] [-skipTrash] &lt;src&gt; ...]</span><br><span class="line">[-rmdir [--ignore-fail-on-non-empty] &lt;dir&gt; ...]</span><br><span class="line">[-setfacl [-R] [&#123;-b|-k&#125; &#123;-m|-x &lt;acl_spec&gt;&#125; &lt;path&gt;]|[--set &lt;acl_spec&gt; &lt;path&gt;]]</span><br><span class="line">[-setrep [-R] [-w] &lt;rep&gt; &lt;path&gt; ...]</span><br><span class="line">[-stat [format] &lt;path&gt; ...]</span><br><span class="line">[-tail [-f] &lt;file&gt;]</span><br><span class="line">[-test -[defsz] &lt;path&gt;]</span><br><span class="line">[-text [-ignoreCrc] &lt;src&gt; ...]</span><br><span class="line">[-touchz &lt;path&gt; ...]</span><br><span class="line">[-usage [cmd ...]]</span><br></pre></td></tr></table></figure>
-<h3 id="3-常用命令参数介绍"><a href="#3-常用命令参数介绍" class="headerlink" title="3.常用命令参数介绍"></a>3.常用命令参数介绍</h3><table>
-<thead>
-<tr>
-<th>-help                功能：输出这个命令参数手册</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>-ls</strong>                     <strong>功能：显示目录信息</strong>   <em>示例： hadoop fs -ls hdfs://hadoop-server01:9000/</em>   <em>备注：这些参数中，所有的hdfs**路径都可以简写</em>   <em>–&gt;hadoop fs -ls /</em>     <em>等同于上一条命令的效果</em></td>
-</tr>
-<tr>
-<td><strong>-mkdir</strong>                 <strong>功能：在hdfs**</strong>上创建目录*<em>   </em>示例：hadoop fs    -mkdir  -p    /aaa/bbb/cc/dd*</td>
-</tr>
-<tr>
-<td><strong>-moveFromLocal</strong>               <strong>功能：从本地剪切粘贴到hdfs</strong>   <em>示例：hadoop  fs  -   moveFromLocal  /home/hadoop/a.txt  /aaa/bbb/cc/dd</em>   <strong>-moveToLocal</strong>                 <strong>功能：从hdfs**</strong>剪切粘贴到本地*<em>   </em>示例：hadoop  fs  -   moveToLocal   /aaa/bbb/cc/dd  /home/hadoop/a.txt*</td>
-</tr>
-<tr>
-<td><strong>–appendToFile</strong>     <strong>功能：追加一个文件到已经存在的文件末尾</strong>   <em>示例：hadoop  fs  -appendToFile  ./hello.txt    hdfs://hadoop-server01:9000/hello.txt</em>   <em>可以简写为：</em>   <em>Hadoop  fs  -appendToFile  ./hello.txt    /hello.txt</em></td>
-</tr>
-<tr>
-<td><strong>-cat</strong>     <strong>功能：显示文件内容</strong>       <em>示例：hadoop fs -cat    /hello.txt</em>       <strong>-tail</strong>                    <strong>功能：显示一个文件的末尾</strong>   <em>示例：hadoop  fs    -tail  /weblog/access_log.1</em>   <strong>-text</strong>                     <strong>功能：以字符形式打印一个文件的内容</strong>   <em>示例：hadoop  fs    -text  /weblog/access_log.1</em></td>
-</tr>
-<tr>
-<td><strong>-chgrp</strong>    <strong>-chmod</strong>   <strong>-chown</strong>   <strong>功能：linux**</strong>文件系统中的用法一样，对文件所属权限*<em>   </em>示例：<em>   </em>hadoop  fs  -chmod    666  /hello.txt<em>   </em>hadoop  fs  -chown    someuser:somegrp   /hello.txt*</td>
-</tr>
-<tr>
-<td><strong>-copyFromLocal</strong>       <strong>功能：从本地文件系统中拷贝文件到hdfs**</strong>路径去<strong>   <em>示例：hadoop  fs  -copyFromLocal  ./jdk.tar.gz  /aaa/</em>   </strong>-copyToLocal<strong>         </strong>功能：从hdfs<strong>**拷贝到本地</strong>   <em>示例：hadoop fs -copyToLocal   /aaa/jdk.tar.gz</em></td>
-</tr>
-<tr>
-<td><strong>-cp</strong>                 <strong>功能：从hdfs**</strong>的一个路径拷贝hdfs<strong>**的另一个路径</strong>   <em>示例： hadoop  fs  -cp    /aaa/jdk.tar.gz    /bbb/jdk.tar.gz.2</em>       <strong>-mv</strong>                        <strong>功能：在hdfs**</strong>目录中移动文件*<em>   </em>示例： hadoop  fs  -mv  /aaa/jdk.tar.gz  /*</td>
-</tr>
-<tr>
-<td><strong>-get</strong>                 <strong>功能：等同于copyToLocal**</strong>，就是从hdfs<strong>**下载文件到本地</strong>   示例：hadoop fs -get  /aaa/jdk.tar.gz   <strong>-</strong>            <strong>功能：合并下载多个文件</strong>   <em>示例：<strong>比</strong></em>getmerge<strong>    *如hdfs</strong>的目录 /aaa/*<em>下有多个文件:log.1, log.2,log.3,…</em>   hadoop   fs -getmerge /aaa/log.* ./log.sum</td>
-</tr>
-<tr>
-<td><strong>-put</strong>                   <strong>功能：等同于copyFromLocal</strong>   <em>示例：hadoop  fs  -put  /aaa/jdk.tar.gz  /bbb/jdk.tar.gz.2</em></td>
-</tr>
-<tr>
-<td><strong>-rm</strong>                   <strong>功能：删除文件或文件夹</strong>   <em>示例：hadoop fs -rm   -r /aaa/bbb/</em>       <strong>-rmdir</strong>                    <strong>功能：删除空目录</strong>   <em>示例：hadoop  fs    -rmdir   /aaa/bbb/ccc</em></td>
-</tr>
-<tr>
-<td><strong>-df</strong>                  <strong>功能：统计文件系统的可用空间信息</strong>   <em>示例：hadoop  fs  -df    -h  /</em>       <strong>-du</strong>    <strong>功能：统计文件夹的大小信息</strong>   <em>示例：</em>   *hadoop  fs  -du    -s  -h /aaa/**</td>
-</tr>
-<tr>
-<td><strong>-count</strong>            <strong>功能：统计一个指定目录下的文件节点数量</strong>   <em>示例：hadoop fs -count /aaa/</em></td>
-</tr>
-<tr>
-<td><strong>-setrep</strong>                   <strong>功能：设置hdfs**</strong>中文件的副本数量*<em>   </em>示例：hadoop fs -setrep 3 /aaa/jdk.tar.gz*</td>
-</tr>
-<tr>
-<td>查看dfs集群工作状态的命令 hdfs dfsadmin -report</td>
-</tr>
-</tbody>
-</table>
+        <p>Hive只在一个节点上安装即可</p>
+<h1 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">参考：http://www.cnblogs.com/starof/p/4680083.html</span><br></pre></td></tr></table></figure>
+<h1 id="配置hive"><a href="#配置hive" class="headerlink" title="配置hive"></a>配置hive</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">（a）配置HIVE_HOME环境变量  vi conf/hive-env.sh 配置其中的$hadoop_home</span><br><span class="line">	HADOOP_HOME=/opt/hadoop-2.6.4</span><br><span class="line">（b）配置元数据库信息   vi  hive-site.xml </span><br><span class="line">	添加如下内容：</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</span><br><span class="line">&lt;value&gt;jdbc:mysql://127.0.0.1:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;</span><br><span class="line">&lt;description&gt;JDBC connect string for a JDBC metastore&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</span><br><span class="line">&lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</span><br><span class="line">&lt;description&gt;Driver class name for a JDBC metastore&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</span><br><span class="line">&lt;value&gt;root&lt;/value&gt;</span><br><span class="line">&lt;description&gt;username to use against metastore database&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;</span><br><span class="line">&lt;value&gt;963852&lt;/value&gt;</span><br><span class="line">&lt;description&gt;password to use against metastore database&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"></span><br><span class="line">（C）Jline包版本不一致的问题，需要拷贝hive的lib目录中jline.2.12.jar的jar包替换掉hadoop中的 </span><br><span class="line">	cp jline-2.12.jar /opt/hadoop-2.6.4/share/hadoop/yarn/lib/</span><br><span class="line"></span><br><span class="line">(d) 添加环境变量 vi /etc/profile</span><br><span class="line">    export JAVA_HOME=/opt/jdk1.8</span><br><span class="line">    export HADOOP_HOME=/opt/hadoop-2.6.4</span><br><span class="line">    export HIVE_HOME=/opt/hive</span><br><span class="line">    export 	PATH=$&#123;PATH&#125;:$&#123;JAVA_HOME&#125;/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HIVE_HOME/bin</span><br><span class="line"></span><br><span class="line">. /etc/profile </span><br><span class="line"></span><br><span class="line">(e） mysql驱动添加到lib目录下</span><br><span class="line">(f) 启动</span><br><span class="line">	hive</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -476,7 +432,9 @@
           
             <a href="/tags/大数据/" rel="tag"># 大数据</a>
           
-            <a href="/tags/hdfs/" rel="tag"># hdfs</a>
+            <a href="/tags/hive/" rel="tag"># hive</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
           
         </div>
       
@@ -489,8 +447,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/20/3.hdfs-javaAPI/" rel="next" title="3.hdfs-javaAPI">
-                <i class="fa fa-chevron-left"></i> 3.hdfs-javaAPI
+              <a href="/2018/09/20/2.hdfs-shell操作/" rel="next" title="2.hdfs-shell操作.md">
+                <i class="fa fa-chevron-left"></i> 2.hdfs-shell操作.md
               </a>
             
           </div>
@@ -499,8 +457,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/26/5.hive安装/" rel="prev" title="5.hive安装">
-                5.hive安装 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/28/4.mapreduce程序编写 - 副本/" rel="prev" title="4.mapreduce程序编写">
+                4.mapreduce程序编写 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -651,7 +609,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-hdfs命令行客户端"><span class="nav-number">1.</span> <span class="nav-text">1.hdfs命令行客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-命令行客户端支持的命令参数"><span class="nav-number">2.</span> <span class="nav-text">2.命令行客户端支持的命令参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-常用命令参数介绍"><span class="nav-number">3.</span> <span class="nav-text">3.常用命令参数介绍</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装mysql"><span class="nav-number">1.</span> <span class="nav-text">安装mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置hive"><span class="nav-number">2.</span> <span class="nav-text">配置hive</span></a></li></ol></div>
             
 
           </div>
